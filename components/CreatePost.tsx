@@ -167,7 +167,7 @@ const CreatePost= () => {
                 <XIcon className="text-white h-5" />
               </div>
               <img
-                src={selectedFile}
+                src={selectedFile.toString()}
                 alt="name"
                 className="rounded-2xl max-h-80  object-contain"
               />
