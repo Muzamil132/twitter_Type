@@ -10,7 +10,18 @@ import  {useEffect} from 'react'
 import { db } from '../firebase'
 import { onSnapshot, collection, query, orderBy,QueryDocumentSnapshot,DocumentData,getDocs } from "@firebase/firestore";
 import PostItem from './PostItem'
-import { PostType } from '../types/PostTypes'
+interface PostType{
+  id:string,
+  tag:string,
+  image:string,
+  text:string,
+  timestamp:string,
+  userImg:string
+  username:string
+  likes?:string[]
+}
+
+
 const TimeLine:NextPage = () => {
  
   const [isOpen,setISopen] =useRecoilState(mobileSidebarState)
