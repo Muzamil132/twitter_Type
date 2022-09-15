@@ -12,7 +12,7 @@ interface IProps {
   username: string;
 }
 
-const Comments = ({ userId, commentText, username }: IProps) => {
+const Comments = ({ userId, commentText, username,userImg }: IProps) => {
   const { data: session } = useSession();
 
 
@@ -23,7 +23,7 @@ const Comments = ({ userId, commentText, username }: IProps) => {
         <Link href={`/profile/${userId}`}>
           <img
             className="inline-block  h-11 w-11 rounded-full "
-            src={session?.user.image}
+            src={userImg}
             alt="yyy"
           />
         </Link>
