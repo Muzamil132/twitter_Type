@@ -25,12 +25,15 @@ import {
 import { getDownloadURL, ref, uploadString,uploadBytes } from "firebase/storage";
 
 import {db,storage} from '../firebase'
+import Loader from "./Loader";
+import { useRecoilState } from "recoil";
+
 
 // import "emoji-mart/css/emoji-mart.css";
-const CreatePost= () => {
+const CreatePost=():JSX.Element=>{
   // const ref = useRef<HTMLDivElement | null>(null);
   const pickerRef = useRef<HTMLInputElement>(null);
- 
+
   const {data:session} =useSession()
   // console.log(ref)
   const [input, setInput] = useState<string>("");
@@ -41,6 +44,8 @@ const CreatePost= () => {
   >(null);
 
   console.log(selectedFile);
+
+
 
   const addImage = async (e:any) => {
     const reader = new FileReader();
@@ -80,7 +85,7 @@ const CreatePost= () => {
 
 
 
-  // send Post functionanility
+
 
 
   const sendPost = async () => {
@@ -88,8 +93,7 @@ const CreatePost= () => {
     setLoading(true);
 
     const docRef = await addDoc(collection(db, "posts"), {
-    
-      id: session?.user.uid,
+      userId: session?.user.uid,
       username: session?.user.name,
       userImg: session?.user.image,
       tag: session?.user.tag,
@@ -116,9 +120,6 @@ const CreatePost= () => {
     setSelectedFile(null);
     setLoading(false);
   };
-
- 
-
   return (
     <div className="">
 
@@ -159,7 +160,8 @@ const CreatePost= () => {
           </div>
         )}
          {selectedFile && (
-            <div className="relative ">
+             loading? <Loader/>:
+            <div className={`relative `}>
               <div
                 className="absolute w-8 h-8 bg-[#15181c] hover:bg-[#272c26] bg-opacity-75 rounded-full flex items-center justify-center top-1 left-1 cursor-pointer"
                 onClick={() => setSelectedFile(null)}
@@ -169,7 +171,7 @@ const CreatePost= () => {
               <img
                 src={selectedFile.toString()}
                 alt="name"
-                className="rounded-2xl max-h-80  object-contain"
+                className={`rounded-2xl max-h-80  object-contain   `}
               />
             </div>
          )}
@@ -210,7 +212,7 @@ const CreatePost= () => {
                 )
               )}
             </div>
-            <button onClick={sendPost} className=" mr-2 xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-[100px] h-[40px] text-lg font-bold shadow-md hover:bg-[#1a8cd8] hover:bg-opacity-80  ">
+            <button disabled={loading} onClick={sendPost} className={`disabled:bg-opacity-50  mr-2 xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-[100px] h-[40px] text-lg font-bold shadow-md hover:bg-[#1a8cd8] hover:bg-opacity-80  `}>
               Tweet
             </button>
             

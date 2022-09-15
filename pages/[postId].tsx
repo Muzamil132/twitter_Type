@@ -12,6 +12,7 @@ import styles from '../styles/Home.module.css'
 import {useRecoilState} from 'recoil'
 import Modal from '../components/Modal';
 import FullViewImage from '../components/FullViewImage';
+import SinglePostWithComments from '../components/SinglePostWithComments';
 
 
 
@@ -34,7 +35,7 @@ export interface IProps{
  
 }
 
-const Home: NextPage<IProps> = ({providers}) => {
+const PostScreen: NextPage<IProps> = ({providers}) => {
  
   const [isOpen,setISopen] =useRecoilState(mobileSidebarState)
   const [modalOpen ,setModalOpen]=useRecoilState(modalState)
@@ -69,13 +70,11 @@ const Home: NextPage<IProps> = ({providers}) => {
       }
     
       <Sidebar/>
-      {/* sidebar  */}
-      <TimeLine/>
-
+      <SinglePostWithComments/>
      {
        modalOpen &&
        (
-        <div className='fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 min-h-[70%] z-50 bg-black sm:w-1/2 w-[90%] rounded-xl sm:rounded-2xl shadow-xl'>
+        <div className='fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 h-3/4 z-50 bg-black sm:w-1/2 w-3/4 rounded-xl sm:rounded-2xl shadow-xl'>
         <Modal>
           <FullViewImage/>
         </Modal>
@@ -91,7 +90,7 @@ const Home: NextPage<IProps> = ({providers}) => {
   )
 }
 
-export default Home
+export default PostScreen
 
 
 export async function getServerSideProps(context:any) {

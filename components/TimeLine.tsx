@@ -8,9 +8,10 @@ import { useRecoilState } from "recoil";
 
 import  {useEffect} from 'react'
 import { db } from '../firebase'
-import { onSnapshot, collection, query, orderBy,QueryDocumentSnapshot,DocumentData,getDocs } from "@firebase/firestore";
+import { onSnapshot, collection, query, orderBy,QueryDocumentSnapshot,DocumentData,getDocs, doc ,getDoc} from "@firebase/firestore";
 import PostItem from './PostItem'
-interface PostType{
+import Loader from './Loader'
+export interface PostType{
   id:string,
   tag:string,
   image:string,
@@ -26,30 +27,47 @@ const TimeLine:NextPage = () => {
  
   const [isOpen,setISopen] =useRecoilState(mobileSidebarState)
   const [Posts,setPosts]=useState<PostType[]>()
+  const [isPostLoaded,setPostLoaded]=useState(false)
+
+
+
+
+  const getPosts=()=>{
+    setPostLoaded(true)
+    const q = query(collection(db, "posts"),orderBy("timestamp", "desc"));
+    onSnapshot(q, (querySnapshot) => {
+    const postdata:any = [];
+    querySnapshot.forEach((doc) => {
+      
+        var obj={}
+        obj ={id:doc.id,...doc.data()}
+        postdata.push(obj);
+        setPosts(postdata)
+    });
+
    
+      setPostLoaded(false)
+    
+  
+  });
+
+
+    
+  }
 
    useEffect(()=>{
-    const q = query(collection(db, "posts"),orderBy("timestamp", "desc"));
-      onSnapshot(q, (querySnapshot) => {
-      const postdata:any = [];
-      querySnapshot.forEach((doc) => {
-          var obj={}
-          obj ={id:doc.id,...doc.data()}
-          postdata.push(obj);
-          setPosts(postdata)
-      });
-    
-    });
- 
-  
+    getPosts()
 
-   },[])
-console.log(Posts)
+   
+  },[])
+
+  console.log(Posts)
+
  
   return (
 
     <div className=' text-white sm:ml-[80px] xl:ml-[330px] flex-grow max-w-[41rem] border-1 border-r border-l min-h-screen border-gray-700 ' >
-    <div className='text-[#d9d9d9d] flex items-center sm:justify-between sticky top-0 py-2 px-3 z-10 border-b bg-black  border-gray-700' >
+    <div className='text-[#d9d9d9d] flex items-center sm:justify-between  top-0 py-2 px-3 sticky border-b bg-black  border-gray-700' >
     <button  onClick={()=>setISopen(true)} className=" sm:hidden  h-10 w-10 rounded-full text-gray-400 ">
             <MenuAlt4Icon  className="h-5"/>
           </button>
@@ -60,13 +78,18 @@ console.log(Posts)
     
     </div>
     <CreatePost/>
-    <div>
+    {
+      !isPostLoaded? <div>
       {
         Posts!==undefined && Posts.map((post,id)=>(
-          <PostItem username={post.username} tag={post.tag}  key={id} text={post.text} image={post?.image}  avatar={post.userImg}   />
+          <PostItem postId={post.id} username={post.username} tag={post.tag}  key={id} text={post.text} image={post?.image}  avatar={post.userImg}   />
         ))
       }
-    </div>
+    </div>:(
+      <Loader/>
+    )
+    }
+   
         
     </div>
   )
