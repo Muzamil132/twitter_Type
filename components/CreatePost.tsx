@@ -27,6 +27,7 @@ import { getDownloadURL, ref, uploadString,uploadBytes } from "firebase/storage"
 import {db,storage} from '../firebase'
 import Loader from "./Loader";
 import { useRecoilState } from "recoil";
+import Image from "next/image";
 
 
 // import "emoji-mart/css/emoji-mart.css";
@@ -43,8 +44,8 @@ const CreatePost=():JSX.Element=>{
     string | ArrayBuffer | null | undefined
   >(null);
 
-  console.log(selectedFile);
-
+ console.log(selectedFile);
+ console.log(session?.user.image)
 
 
   const addImage = async (e:any) => {
@@ -120,6 +121,8 @@ const CreatePost=():JSX.Element=>{
     setSelectedFile(null);
     setLoading(false);
   };
+  const imageUrl =session?.user.image!=undefined? session?.user.image:""
+
   return (
     <div className="">
 
@@ -128,10 +131,13 @@ const CreatePost=():JSX.Element=>{
       >
         <div className="flex flex-row  w-full items-center  space-x-2 px-3 py-2">
          
-          <img
-            src={session?.user.image}
+          <Image
+          
+            height={50}
+            width={50}
+            src={imageUrl}
             alt="name"
-            className=" h-11 w-11 rounded-full  "
+            className=" h-11 w-11 rounded-full -z-3 "
           />
           <input
             value={input}

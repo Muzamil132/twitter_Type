@@ -4,13 +4,15 @@ import { NextPage } from 'next'
 import React, { useState } from 'react'
 import { mobileSidebarState } from '../store/atoms'
 import CreatePost from './CreatePost'
-import { useRecoilState } from "recoil";
-
+import { Snapshot, useRecoilState } from "recoil";
+import { Notyf } from 'notyf'
 import  {useEffect} from 'react'
 import { db } from '../firebase'
 import { onSnapshot, collection, query, orderBy,QueryDocumentSnapshot,DocumentData,getDocs, doc ,getDoc} from "@firebase/firestore";
 import PostItem from './PostItem'
 import Loader from './Loader'
+import { useSession } from 'next-auth/react'
+import "notyf/notyf.min.css"
 export interface PostType{
   id:string,
   tag:string,
@@ -19,30 +21,37 @@ export interface PostType{
   timestamp:string,
   userImg:string
   username:string
+  commentNumber:number,
   likes?:string[]
 }
 
 
 const TimeLine:NextPage = () => {
- 
+ const {data:session}=useSession()
   const [isOpen,setISopen] =useRecoilState(mobileSidebarState)
   const [Posts,setPosts]=useState<PostType[]>()
   const [isPostLoaded,setPostLoaded]=useState(false)
+  const [isPostLiked,setPostLiked]=useState(false)
+
 
 
 
 
   const getPosts=()=>{
+  
     setPostLoaded(true)
+    
     const q = query(collection(db, "posts"),orderBy("timestamp", "desc"));
     onSnapshot(q, (querySnapshot) => {
-    const postdata:any = [];
+      const postdata:any = [];
     querySnapshot.forEach((doc) => {
-      
+     
         var obj={}
-        obj ={id:doc.id,...doc.data()}
-        postdata.push(obj);
-        setPosts(postdata)
+       
+        obj={id:doc.id,...doc.data()}
+        postdata.push(obj)
+     
+       setPosts(postdata)
     });
 
    
@@ -61,7 +70,7 @@ const TimeLine:NextPage = () => {
    
   },[])
 
-  console.log(Posts)
+ 
 
  
   return (
@@ -82,7 +91,7 @@ const TimeLine:NextPage = () => {
       !isPostLoaded? <div>
       {
         Posts!==undefined && Posts.map((post,id)=>(
-          <PostItem postId={post.id} username={post.username} tag={post.tag}  key={id} text={post.text} image={post?.image}  avatar={post.userImg}   />
+          <PostItem isPostLiked={isPostLiked} commentsNumber={post?.commentNumber}  postId={post.id} username={post.username} tag={post.tag}  key={id} text={post.text} image={post?.image}  avatar={post.userImg}   />
         ))
       }
     </div>:(

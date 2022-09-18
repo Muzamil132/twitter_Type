@@ -12,6 +12,11 @@ import styles from '../styles/Home.module.css'
 import {useRecoilState} from 'recoil'
 import Modal from '../components/Modal';
 import FullViewImage from '../components/FullViewImage';
+import {useEffect} from 'react'
+import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+import SearchCompoent from '../components/RightSidebar';
+import BottomBar from '../components/BottomBar';
 
 
 
@@ -39,6 +44,34 @@ const Home: NextPage<IProps> = ({providers}) => {
   const [isOpen,setISopen] =useRecoilState(mobileSidebarState)
   const [modalOpen ,setModalOpen]=useRecoilState(modalState)
   const { data: session } = useSession();
+  
+  const id=session?.user.uid!=undefined && session?.user.uid
+  const addUsertoDb=async()=>{
+
+    const userExist= await  getDoc(doc(db,"users",id.toString()))
+           if(userExist.exists()){
+              return 
+           }else{
+            await setDoc(doc(db,"Users",id.toString()),{
+              username:session?.user.name,
+              userId:session?.user?.uid,
+              userImg:session?.user?.image
+        })
+
+           }
+   
+  }
+   
+  useEffect(()=>{
+    if(session!==undefined){
+      addUsertoDb()
+    }
+    
+
+  },[])
+
+
+
 
   if (!session) return <Login providers={providers} />
 
@@ -75,7 +108,7 @@ const Home: NextPage<IProps> = ({providers}) => {
      {
        modalOpen &&
        (
-        <div className='fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 min-h-[60%] z-50 bg-black sm:w-1/2 w-[90%] rounded-xl sm:rounded-2xl shadow-xl'>
+        <div className='fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 min-h-[70%] z-50 bg-black sm:w-1/2 w-[90%] rounded-xl sm:rounded-2xl shadow-xl  overflow-y-auto  '>
         <Modal>
           <FullViewImage/>
         </Modal>
@@ -84,8 +117,8 @@ const Home: NextPage<IProps> = ({providers}) => {
       
      } 
       
-     
-    
+     <SearchCompoent/>
+     <BottomBar/>
     </main>
     </div>
   )

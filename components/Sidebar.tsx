@@ -31,6 +31,7 @@ const {data:session} =useSession()
         {
           ItemsList.map((item,id)=>(
             <SidebarLink  
+            href={item.href}
             active={item.active}
             key={id}   
             text={item.text}

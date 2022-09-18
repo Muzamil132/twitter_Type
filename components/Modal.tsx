@@ -92,7 +92,7 @@ const Modal = ({ children }: any) => {
             "user_image"
           />
         </div>
-        <input onChange={(e)=>setCommentText(e.target.value)}  value={commentText} type="text" placeholder="Tweet your reply" className="outline-none bg-transparent text-gray-100 text-xl "/>
+        <textarea onChange={(e)=>setCommentText(e.target.value)}  value={commentText}  placeholder="Tweet your reply" className="outline-none bg-transparent flex-1  text-gray-100 text-xl "/>
       </div>
       <div className="flex items-center justify-end  absolute bottom-4 right-4">
         <button onClick={addCommentToTweet} disabled={!commentText.trim()} className="py-2 px-3 bg-blue-500 outline-none rounded-3xl w-[120px] shadow-lg text-white font-bold disabled:bg-blue-200  ">

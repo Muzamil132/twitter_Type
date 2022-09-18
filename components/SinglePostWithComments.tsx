@@ -29,6 +29,8 @@ import {
   addDoc,
   
   doc,
+  deleteDoc,
+  setDoc,
 
 } from "@firebase/firestore";
 import PostItem from "./PostItem";
@@ -37,6 +39,7 @@ import Icons from "./Icons";
 import { useRouter } from "next/router";
 import Comments from "./Comments";
 import { useSession } from "next-auth/react";
+import { LikePost } from "../Utilities/functions";
 export interface PostType {
   id: string;
   tag: string;
@@ -70,14 +73,28 @@ const SinglePostWithComments = () => {
   const [post, setPost] = useState<DocumentData | undefined>();
   const [comments,setCommets] =useState<CommentType[] | undefined>()
   const [commentTitle,setCommentTitle] =useState("")
-  const router=useRouter()
-
-  const {
-    query: { postId },
-  } = useRouter();
+ 
+const router=useRouter()
+ const {query:{postId,numberOfComment,numberOfLikes,liked}}=useRouter()
+   const parsBool =(liked:string | string[] | undefined):boolean=>{
+    if(liked==="false"){
+      return false
+    }
+    return true
+   }
+ 
   const {data:session}=useSession()
+  const user={
 
-  const id = postId !== undefined ? postId : "";
+    userImg:session?.user.image,
+    userId:session?.user.uid,
+    username:session?.user.name
+  
+
+}
+
+
+  const id =postId !== undefined ? postId : "";
   const image = "";
 
   const getPost = () => {
@@ -118,6 +135,8 @@ const SinglePostWithComments = () => {
  
  }
 
+
+    
 
 
   useEffect(() => {
@@ -175,9 +194,16 @@ const SinglePostWithComments = () => {
                 </div>
 
                 <div className="flex justify-between border-b border-gray-700 -ml-4">
-                
+                <div  className="cursor-pointer flex items-center space-x-1 ">
+               <Icons  Icon={ChatAlt2Icon} color="text-tw-blue"/>
 
-                  <Icons Icon={HeartIcon} color="text-red-400" />
+               <span className='text-gray-200 -mt-1'>{+numberOfComment!>0 &&  numberOfComment}</span>
+               </div>
+
+              <div className="cursor-pointer flex items-center space-x-1 "  >
+             <Icons isPostLiked={parsBool(liked)} Icon={HeartIcon} color="text-red-400" />
+             <span className='text-gray-200 -mt-1'>{+numberOfLikes!>0 &&  numberOfLikes}</span>
+             </div>
                   <Icons Icon={ShareIcon} color="text-green-400" />
                   <Icons Icon={UploadIcon} color="text-tw-blue" />
                 </div>

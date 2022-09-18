@@ -3,6 +3,7 @@ type SideBarItem={
     active?:boolean
     Icon:any,
     text:string
+    href:string
 }
 
 
@@ -27,38 +28,53 @@ export const ItemsList:SideBarItem[]=[
     {
         active:true,
         Icon:HomeIcon,
-        text:"Home"
+        text:"Home",
+        href:"/"
+        
+
     },
     
     {
        
         Icon:HashtagIcon,
         text:"Explore"
+        ,
+        href:"/"
     },
     {
        
         Icon:BellIcon,
-        text:"Notifications"
+        text:"Notifications",
+        
+        href:"/"
     },
     {
        
         Icon:BookmarkIcon,
-        text:"Messages"
+        text:"Messages",
+        
+        href:"/"
     },
     {
        
         Icon:InboxIcon,
         text:"Bookmarks"
+        ,
+        href:"/"
     },
    
     {
        
         Icon:UserIcon,
         text:"Profile"
+        ,
+        href:"/"
     },
     {
        
         Icon:DotsCircleHorizontalIcon,
-        text:"More"
+        text:"More",
+        
+        href:"/"
     },
 ]

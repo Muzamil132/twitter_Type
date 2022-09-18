@@ -1,10 +1,14 @@
-import React from 'react'
-import {CheckCircleIcon ,DotsHorizontalIcon } from '@heroicons/react/solid'
-import {HeartIcon,ShareIcon,UploadIcon,ChatAlt2Icon} from '@heroicons/react/outline'
+import React, { useEffect, useState } from 'react'
+import {CheckCircleIcon ,DotsHorizontalIcon,HeartIcon } from '@heroicons/react/solid'
+import {ShareIcon,UploadIcon,ChatAlt2Icon} from '@heroicons/react/outline'
 import Icons from './Icons'
-import { useRecoilState } from 'recoil'
+import { Snapshot, useRecoilState } from 'recoil'
 import { modalState, postState } from '../store/atoms'
 import Link from 'next/link'
+import { collection, doc, getDoc, updateDoc,FieldValue,addDoc, getDocs, where, query,deleteDoc, setDoc, onSnapshot, orderBy, DocumentData } from 'firebase/firestore'
+import { db } from '../firebase'
+import { useSession } from 'next-auth/react'
+import { LikePost } from '../Utilities/functions'
 
 interface IProps{
   text:string
@@ -13,19 +17,89 @@ interface IProps{
   tag:string,
   username:string,
   postId:string
+  commentsNumber:number
+  isPostLiked:boolean
 
 }
 
-const PostItem = ({text,image,avatar,username,tag,postId}:IProps) => {
+const PostItem = ({text,image,avatar,username,tag,postId,commentsNumber,isPostLiked}:IProps) => {
+
+  console.log("post islikes por not",isPostLiked)
 
 const [modalOpen ,setModalOpen]=useRecoilState(modalState)
 const [postIdd,setPostId]=useRecoilState(postState)
+const {data:session} =useSession()
+const [likes,setLikes] =useState<DocumentData |undefined >()
+const [liked,setLiked] =useState(false)
+const [numberOfLikes,setNumberOfLikes]=useState<number>()
+const [numberOfComment,setNumberOfComment]=useState<number>()
 
 const openModal=(postId:string)=>{
   setModalOpen(true)
   setPostId(postId)
 
 }
+
+useEffect(
+
+  () =>{
+  
+    onSnapshot(collection(db, "posts", postId, "likes"), (snapshot) =>{
+      var likesArray:any=[]
+     
+      setNumberOfLikes(snapshot.docs.length)
+
+      snapshot.forEach((doc)=>{
+      
+        likesArray.push(doc.data())
+
+      })
+      setLikes(likesArray)
+  })
+  },
+  [ postId]
+);
+
+useEffect(
+
+  () =>{
+  
+    onSnapshot(collection(db, "posts", postId, "comments"), (snapshot) =>{
+    
+     
+      setNumberOfComment(snapshot.docs.length)
+
+     
+      
+  })
+  },
+  [ postId]
+);
+
+console.log(likes)
+useEffect(()=>{
+  setLiked(
+    likes?.some((like:any) => like.userId === session?.user?.uid) 
+  )
+
+},[likes,session?.user.uid])
+
+
+
+
+const user={
+
+    userImg:session?.user.image,
+    userId:session?.user.uid,
+    username:session?.user.name
+  
+
+}
+
+
+
+
+
 
     return (
         <div className=" border-gray-700 px-3 py-2 border-b hover:bg-[#18191a]cursor-pointer ">
@@ -46,7 +120,13 @@ const openModal=(postId:string)=>{
             </div>
            
             </div>
-            <Link href={`/${postId}`}>
+            <Link href={{pathname:`/${postId}`
+            ,query:{
+              liked,numberOfComment,numberOfLikes
+            }
+            
+          
+          }}>
             <div className='cursor-pointer'>
 
           
@@ -63,13 +143,18 @@ const openModal=(postId:string)=>{
             </div>
             </div>
             </Link>
-            <div  className="flex justify-between py-2">
-               <div onClick={()=>openModal(postId)} className="cursor-pointer">
+               <div  className="flex justify-between py-2">
+               <div onClick={()=>openModal(postId)} className="cursor-pointer flex items-center space-x-1 ">
                <Icons  Icon={ChatAlt2Icon} color="text-tw-blue"/>
+
+               <span className='text-gray-200 -mt-1'>{numberOfComment!>0 &&  numberOfComment}</span>
                </div>
-             
-              <Icons   Icon={HeartIcon} color="text-red-400" />
-              <Icons Icon={ShareIcon} color="text-green-400"/>
+             <div onClick={()=>LikePost(liked,postId,user)} className="cursor-pointer flex items-center space-x-1 "  >
+             <Icons isPostLiked={liked}  Icon={HeartIcon} color="text-red-400" />
+             <span className='text-gray-200 -mt-1'>{numberOfLikes!>0 &&  numberOfLikes}</span>
+             </div>
+            
+              <Icons  Icon={ShareIcon} color="text-green-400"/>
               <Icons Icon={UploadIcon} color="text-tw-blue"/>
               
             </div>
