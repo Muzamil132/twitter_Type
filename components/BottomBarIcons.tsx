@@ -13,7 +13,7 @@ const BottomBarIcons = ({Icon}:IProps) => {
    
   return (
     <div>
-        <Icon className="w-5 h-5  text-white" />
+        <Icon className="w-7 h-7  text-white" />
     </div>
   )
 }

@@ -22,7 +22,7 @@ import BottomBarIcons from './BottomBarIcons';
 
 const BottomBar = () => {
   return (
-    <div className='bg-black fixed bottom-0 left-0 right-0 sm:hidden flex justify-between px-3 py-2 border-t border-gray-700 '>
+    <div className='bg-black fixed bottom-0 left-0 right-0 sm:hidden flex justify-between px-3 py-3 border-t border-gray-700 '>
      {bottomBarIcons.map((icon,id)=>(
         <BottomBarIcons key={id} Icon={icon}/>
       ))
