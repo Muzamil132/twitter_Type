@@ -75,7 +75,7 @@ const TimeLine:NextPage = () => {
  
   return (
 
-    <div className=' text-white sm:ml-[80px] xl:ml-[330px] flex-grow max-w-[41rem] border-1 border-r border-l min-h-screen border-gray-700 ' >
+    <div className=' text-white sm:ml-[80px] xl:ml-[330px] flex-grow max-w-[35rem] border-1 border-r border-l min-h-screen border-gray-700 ' >
     <div className='text-[#d9d9d9d] flex items-center sm:justify-between  top-0 py-2 px-3 sticky border-b bg-black  border-gray-700' >
     <button  onClick={()=>setISopen(true)} className=" sm:hidden  h-10 w-10 rounded-full text-gray-400 ">
             <MenuAlt4Icon  className="h-5"/>

@@ -28,8 +28,8 @@ const RightSidebar = () => {
   ];
 
   return (
-    <div className=" hidden fixed top-0 sm:ml-[986px] sm:w-[520px] sm:flex flex-col">
-      <div className="px-4 sm:px-6 sm:w-[480px] ">
+    <div className=" hidden fixed top-0 sm:ml-[910px] sm:w-[450px] sm:flex flex-col">
+      <div className="px-4 sm:px-6 sm:w-[460px] ">
         <SearchBox />
         {/* Search Box Completed  */}
 

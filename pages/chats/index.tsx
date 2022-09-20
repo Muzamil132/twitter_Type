@@ -36,7 +36,7 @@ const Index = ({children}:any) => {
   return (
     <Layoute>
       <div className="flex min-h-screen sm:w-[97%] w-full">
-        <div className="sm:flex-[33%] hidden sm:block  flex-1 border-r border-gray-700">
+        <div className={`sm:flex-[33%] ${pathname!=="/chats" &&"hidden sm:flex flex-col" }  flex-1 border-r border-gray-700`}>
           <div className="px-4 mt-4 flex  justify-between  ">
             <p className="text-xl font-semibold text-white">Messages</p>
             <div className="flex space-x-3">
@@ -108,7 +108,7 @@ const Index = ({children}:any) => {
             </div>
           </div>
         </div>
-        <div className="sm:flex-[62%] flex-1  border-r border-gray-700">
+        <div className={`sm:flex-[62%]  ${pathname=="/chats" &&"hidden sm:flex " }  flex-1 border-r border-gray-700`}>
          {
             pathname=="/chats" &&    <div className="h-[100%] w-[100%] hidden sm:flex items-center justify-center">
             <div className="flex flex-col justify-start ">

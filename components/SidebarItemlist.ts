@@ -34,13 +34,7 @@ export const ItemsList:SideBarItem[]=[
 
     },
     
-    {
-       
-        Icon:HashtagIcon,
-        text:"Explore"
-        ,
-        href:"/"
-    },
+   
     {
        
         Icon:BellIcon,
