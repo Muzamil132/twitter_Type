@@ -17,7 +17,7 @@ const BottomBarIcons = ({Icon,href}:IProps) => {
     <div>
         <Link href={href}  >
         
-        <Icon className="w-7 h-7  text-white" />
+        <Icon className="w-6 h-6  text-white" />
         </Link>
     </div>
   )

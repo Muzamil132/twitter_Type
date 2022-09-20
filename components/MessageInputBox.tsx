@@ -30,11 +30,11 @@ const MessageInputBox = () => {
       !activeSearch?(
         <div className='flex space-x-2'>
 
-       <PhotographIcon className='w-5 sm:w-7'/>
-        <FilmIcon className='w-5 sm:w-7' />
+       <PhotographIcon className='h-6 w-6'/>
+        <FilmIcon className='h-6 w-6' />
         </div>
         ):(
-          <ChevronLeftIcon className='w-5 sm:w-7'   />
+          <ChevronLeftIcon className='w-6 '   />
         )
 }
         <div
@@ -51,9 +51,9 @@ const MessageInputBox = () => {
                 placeholder="Start a new message"
                 className="outline-none flex-1 text-white text-md sm:text-lg bg-transparent "
               />
-              <EmojiSadIcon className="h-5 sm:h-6 text-white" />
+              <EmojiSadIcon className="h-6 w-6 text-white" />
             </div>
-            <ArrowCircleRightIcon className='w-7 sm:w-7' />
+            <ArrowCircleRightIcon className='w-6 h-6' />
 
     </div>
   )

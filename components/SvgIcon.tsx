@@ -7,7 +7,7 @@ interface IProps{
 const SvgIcon = ({Icon}:IProps) => {
   return (
     <div>
-        <Icon className="h-5 sm:h-6"  />
+        <Icon className="h-6 w-6"  />
     </div>
   )
 }
