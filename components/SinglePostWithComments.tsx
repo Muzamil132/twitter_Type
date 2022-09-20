@@ -40,6 +40,7 @@ import { useRouter } from "next/router";
 import Comments from "./Comments";
 import { useSession } from "next-auth/react";
 import { LikePost } from "../Utilities/functions";
+import { LikeHook } from "../customeHooks/isLikedHook";
 export interface PostType {
   id: string;
   tag: string;
@@ -73,15 +74,15 @@ const SinglePostWithComments = () => {
   const [post, setPost] = useState<DocumentData | undefined>();
   const [comments,setCommets] =useState<CommentType[] | undefined>()
   const [commentTitle,setCommentTitle] =useState("")
- 
+
 const router=useRouter()
- const {query:{postId,numberOfComment,numberOfLikes,liked}}=useRouter()
-   const parsBool =(liked:string | string[] | undefined):boolean=>{
-    if(liked==="false"){
-      return false
-    }
-    return true
-   }
+ const {query:{postId,numberOfComment}}=useRouter()
+  //  const parsBool =(liked:string | string[] | undefined):boolean=>{
+  // //   if(liked==="false"){
+  // //     return false
+  // //   }
+  // //   return true
+  // //  }
  
   const {data:session}=useSession()
   const user={
@@ -93,8 +94,9 @@ const router=useRouter()
 
 }
 
-
+const userId =session?.user.uid !==undefined && session?.user.uid
   const id =postId !== undefined ? postId : "";
+  const {liked,numberOfLikes}=LikeHook(id.toString(),userId.toString())
   const image = "";
 
   const getPost = () => {
@@ -200,8 +202,8 @@ const router=useRouter()
                <span className='text-gray-200 -mt-1'>{+numberOfComment!>0 &&  numberOfComment}</span>
                </div>
 
-              <div className="cursor-pointer flex items-center space-x-1 "  >
-             <Icons isPostLiked={parsBool(liked)} Icon={HeartIcon} color="text-red-400" />
+              <div onClick={()=>LikePost(Boolean(liked),id.toString(),user)} className="cursor-pointer flex items-center space-x-1 "  >
+             <Icons isPostLiked={Boolean(liked)} Icon={HeartIcon} color="text-red-400" />
              <span className='text-gray-200 -mt-1'>{+numberOfLikes!>0 &&  numberOfLikes}</span>
              </div>
                   <Icons Icon={ShareIcon} color="text-green-400" />

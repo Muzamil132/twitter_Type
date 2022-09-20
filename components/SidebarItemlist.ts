@@ -50,14 +50,14 @@ export const ItemsList:SideBarItem[]=[
     },
     {
        
-        Icon:BookmarkIcon,
+        Icon:InboxIcon,
         text:"Messages",
         
-        href:"/"
+        href:"/chats"
     },
     {
        
-        Icon:InboxIcon,
+        Icon:BookmarkIcon,
         text:"Bookmarks"
         ,
         href:"/"
@@ -68,7 +68,7 @@ export const ItemsList:SideBarItem[]=[
         Icon:UserIcon,
         text:"Profile"
         ,
-        href:"/"
+        href:"/profile/:profileId"
     },
     {
        

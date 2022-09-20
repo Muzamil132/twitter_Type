@@ -9,6 +9,7 @@ import { collection, doc, getDoc, updateDoc,FieldValue,addDoc, getDocs, where, q
 import { db } from '../firebase'
 import { useSession } from 'next-auth/react'
 import { LikePost } from '../Utilities/functions'
+import { LikeHook } from '../customeHooks/isLikedHook'
 
 interface IProps{
   text:string
@@ -22,68 +23,23 @@ interface IProps{
 
 }
 
-const PostItem = ({text,image,avatar,username,tag,postId,commentsNumber,isPostLiked}:IProps) => {
+const PostItem = ({text,image,avatar,username,tag,postId}:IProps) => {
 
-  console.log("post islikes por not",isPostLiked)
+
 
 const [modalOpen ,setModalOpen]=useRecoilState(modalState)
 const [postIdd,setPostId]=useRecoilState(postState)
 const {data:session} =useSession()
-const [likes,setLikes] =useState<DocumentData |undefined >()
-const [liked,setLiked] =useState(false)
-const [numberOfLikes,setNumberOfLikes]=useState<number>()
-const [numberOfComment,setNumberOfComment]=useState<number>()
+
+
+const id =session?.user.uid !==undefined && session?.user.uid
+const {liked,numberOfLikes,numberOfComment} =LikeHook(postId,id.toString())
 
 const openModal=(postId:string)=>{
   setModalOpen(true)
   setPostId(postId)
 
 }
-
-useEffect(
-
-  () =>{
-  
-    onSnapshot(collection(db, "posts", postId, "likes"), (snapshot) =>{
-      var likesArray:any=[]
-     
-      setNumberOfLikes(snapshot.docs.length)
-
-      snapshot.forEach((doc)=>{
-      
-        likesArray.push(doc.data())
-
-      })
-      setLikes(likesArray)
-  })
-  },
-  [ postId]
-);
-
-useEffect(
-
-  () =>{
-  
-    onSnapshot(collection(db, "posts", postId, "comments"), (snapshot) =>{
-    
-     
-      setNumberOfComment(snapshot.docs.length)
-
-     
-      
-  })
-  },
-  [ postId]
-);
-
-console.log(likes)
-useEffect(()=>{
-  setLiked(
-    likes?.some((like:any) => like.userId === session?.user?.uid) 
-  )
-
-},[likes,session?.user.uid])
-
 
 
 
@@ -102,7 +58,7 @@ const user={
 
 
     return (
-        <div className=" border-gray-700 px-3 py-2 border-b hover:bg-[#18191a]cursor-pointer ">
+        <div className=" border-gray-700 px-3 py-2 border-b hover:bg-[#18191a] cursor-pointer ">
          
           
             <div className="flex px-1 py-2">

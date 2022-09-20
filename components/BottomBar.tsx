@@ -9,22 +9,47 @@ import {
    
   } from "@heroicons/react/outline";
 import BottomBarIcons from './BottomBarIcons';
+import { useSession } from 'next-auth/react';
+
+ 
+   const BottomBar=()=>{
+ 
+const {data:session}=useSession()
+ 
+  
+const id =session?.user.uid !==undefined && session?.user.uid
 
   var bottomBarIcons=[
-    HomeIcon,
-    SearchIcon,
    
- 
-   UserIcon,
-   InboxIcon,
+    {
+        icon:HomeIcon,
+        href:"/"
+        
+    },
+    {
+        icon:SearchIcon,
+        href:"/SearchPage"
+        
+    },
+    {
+        icon:UserIcon,
+        href:`/profile/${id}`
+
+    },
+    {
+        icon:InboxIcon,
+        href:"/chats"
+
+    }
   ]
+   
 
 
-const BottomBar = () => {
+ 
   return (
     <div className='bg-black fixed bottom-0 left-0 right-0 sm:hidden flex justify-between px-3 py-3 border-t border-gray-700 '>
-     {bottomBarIcons.map((icon,id)=>(
-        <BottomBarIcons key={id} Icon={icon}/>
+     {bottomBarIcons.map((item,id)=>(
+        <BottomBarIcons key={id} href={item.href} Icon={item.icon}/>
       ))
      }
     </div>
