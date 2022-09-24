@@ -137,7 +137,7 @@ const CreatePost=():JSX.Element=>{
             width={50}
             src={imageUrl}
             alt="name"
-            className=" h-11 w-11 rounded-full -z-3 "
+            className=" h-10 w-10 rounded-full -z-3 "
           />
           <input
             value={input}

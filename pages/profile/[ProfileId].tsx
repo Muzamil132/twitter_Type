@@ -1,13 +1,15 @@
 import React from 'react'
 import Layoute from '../../components/Layoute'
+import ProfileLayout from '../../components/ProfileLayout'
 
 const ProfileId = () => {
   return (
-    <Layoute>
-        <div>
-          Muzamil
-        </div>
-    </Layoute>
+   <ProfileLayout>
+     <div className='text-white'>
+      Muzamil
+     </div>
+   </ProfileLayout>
+
   )
 }
 

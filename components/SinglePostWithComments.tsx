@@ -97,6 +97,8 @@ const router=useRouter()
 const userId =session?.user.uid !==undefined && session?.user.uid
   const id =postId !== undefined ? postId : "";
   const {liked,numberOfLikes}=LikeHook(id.toString(),userId.toString())
+
+  console.log(liked,"liked")
   const image = "";
 
   const getPost = () => {
@@ -155,7 +157,7 @@ const userId =session?.user.uid !==undefined && session?.user.uid
   }
 
   return (
-    <div className=" text-white sm:ml-[80px] xl:ml-[330px] flex-grow max-w-[41rem] border-1 border-r border-l min-h-screen border-gray-700 ">
+    <div className="  text-white sm:ml-[80px] xl:ml-[330px] flex-grow max-w-[35rem] border-1 border-r border-l min-h-screen border-gray-700  ">
         <div className="flex items-center space-x-4  top-0 sticky bg-black bg-opacity-50 py-3 ml-2  ">
 
 

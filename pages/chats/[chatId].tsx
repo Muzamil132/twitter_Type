@@ -13,7 +13,7 @@ const OneToOneChat = () => {
   const router = useRouter();
   return (
     <Index>
-      <div className="flex flex-col min-h-screen w-full relative">
+      <div className="flex flex-col h-screen w-full relative">
         {/* chatHeader  */}
         <div className="flex items-center space-x-8 px-4 py-2 bg-[#18191a] absolute top-0 left-0 right-0 ">
           <div onClick={() => router.back()} className="   cursor-pointer ">

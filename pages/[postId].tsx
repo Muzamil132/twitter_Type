@@ -13,6 +13,8 @@ import {useRecoilState} from 'recoil'
 import Modal from '../components/Modal';
 import FullViewImage from '../components/FullViewImage';
 import SinglePostWithComments from '../components/SinglePostWithComments';
+import BottomBar from '../components/BottomBar';
+import RightSidebar from '../components/RightSidebar';
 
 
 
@@ -83,8 +85,10 @@ const PostScreen: NextPage<IProps> = ({providers}) => {
       
      } 
       
+
      
-    
+      <RightSidebar/>
+     <BottomBar/>
     </main>
     </div>
   )

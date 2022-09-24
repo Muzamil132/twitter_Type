@@ -1,9 +1,15 @@
 import { DotsHorizontalIcon, SearchIcon } from "@heroicons/react/solid";
+import { NextPage } from "next";
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import FollowersBox from "./FollowersBox";
 import SearchBox from "./SearchBox";
 import TrendComponent from "./TrendComponent";
 
-const RightSidebar = () => {
+interface IProps{
+  onLayout?:boolean 
+}
+
+const RightSidebar:NextPage<IProps> = ({onLayout}) => {
   var trendingArray = [
     {
       where: "trending in Pakistan",
@@ -28,12 +34,14 @@ const RightSidebar = () => {
   ];
 
   return (
-    <div className=" hidden fixed top-0 sm:ml-[895px] sm:w-[435px] sm:flex flex-col">
+    <div className={`hidden  ${!onLayout && " fixed top-0 sm:ml-[895px] sm:w-[435px]"} sm:w-[435px] sm:flex flex-col`}>
       <div className="px-4 sm:px-6 sm:w-[460px] ">
         <SearchBox />
         {/* Search Box Completed  */}
+        <div className="h-[700px] overflow-y-auto pb-[100px] sm:w-[410px] sm:pr-4 ">
 
-        <div className="bg-neutral-900 rounded-xl h-[450px]  py-3 mt-4">
+       
+        <div className="bg-neutral-900 rounded-xl h-[300px] overflow-y-auto py-3 mt-4">
           <h1 className="text-2xl font-semibold mb-3 px-3 text-white">
             Trends for You
           </h1>
@@ -41,11 +49,16 @@ const RightSidebar = () => {
 
           
           {
-            trendingArray.map((item,id)=>(
-              <TrendComponent key={id} where={item.where} tweets={item.tweets} trend={item.trend}    />
+            trendingArray.map((item,index)=>(
+
+                <TrendComponent key={index} where={item.where} tweets={item.tweets} trend={item.trend}    />
             ))
           }
           </div>
+        </div>
+        {/* Trend Componet completd  */}
+
+        <FollowersBox/>
         </div>
       </div>
     </div>

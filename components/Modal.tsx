@@ -65,7 +65,7 @@ const Modal = ({ children }: any) => {
         <div className="h-10 w-10 flex-[0.1]   sm:h-14 sm:w-14 ">
           <img
             className="rounded-full "
-            src={session?.user.image}
+            src={post?.userImg}
             alt="user_image"
           />
         </div>
@@ -84,10 +84,10 @@ const Modal = ({ children }: any) => {
         </div>
       </div>
       <div className="flex mt-10 sm:ml-6 items-center space-x-2">
-      <div className=" h-10 w-10  sm:h-14 sm:w-14 ">
+      <div className=" h-10 w-10   ">
           <img
             className="rounded-full"
-            src={post?.userImg}
+            src={session?.user.image}
             alt=
             "user_image"
           />

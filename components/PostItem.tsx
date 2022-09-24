@@ -94,12 +94,12 @@ const user={
             <div className="py-3  overflow-hidden">
             
             {
-              image &&  <img className="rounded-xl " src={image} alt="" />
+              image &&  <img className="rounded-xl max-h-[500px] " src={image} alt="" />
             }    
             </div>
             </div>
             </Link>
-               <div  className="flex justify-between py-2">
+               <div  className="flex justify-between">
                <div onClick={()=>openModal(postId)} className="cursor-pointer flex items-center space-x-1 ">
                <Icons  Icon={ChatAlt2Icon} color="text-tw-blue"/>
 

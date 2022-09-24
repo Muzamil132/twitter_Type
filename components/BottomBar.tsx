@@ -10,6 +10,7 @@ import {
   } from "@heroicons/react/outline";
 import BottomBarIcons from './BottomBarIcons';
 import { useSession } from 'next-auth/react';
+import { UserAddIcon } from '@heroicons/react/solid';
 
  
    const BottomBar=()=>{
@@ -31,6 +32,12 @@ const id =session?.user.uid !==undefined && session?.user.uid
         href:"/SearchPage"
         
     },
+    {
+      icon:UserAddIcon,
+      href:`/addUsers`
+
+  },
+    
     {
         icon:UserIcon,
         href:`/profile/${id}`
