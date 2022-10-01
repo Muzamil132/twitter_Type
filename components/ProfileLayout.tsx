@@ -40,7 +40,7 @@ const ProfileLayout = ({ children }: any) => {
   
     <div className=" overflow-x-auto flex w-[100%] ">
       <div className=" hidden sm:block sm:w-[75px] xl:w-[320px] xl:flex-[23%] ">
-        <div className=" h-screen sm:w-[75px] xl:w-[320px] fixed overflow-y-auto border-r border-gray-700  ">
+        <div className=" h-screen sm:w-[75px] xl:w-[320px] fixed overflow-y-auto border-r dark:border-dark-third  ">
          <Sidebar/>
         </div>
       </div>
@@ -49,7 +49,7 @@ const ProfileLayout = ({ children }: any) => {
       </div>
 
       <div className=" px-4   hidden sm:block flex-[35%]" >
-       <div className="fixed  border-l -ml-4 border-gray-700">
+       <div className="fixed  border-l -ml-4 dark:border-dark-third">
         
       
        <RightSidebar onLayout />

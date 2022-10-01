@@ -77,7 +77,7 @@ const OneToOneChat = () => {
     <Index recieverImg={recieverImg.toString()} recieverName={recieverName.toString()}>
       <div className="flex flex-col h-screen w-full relative">
         {/* chatHeader  */}
-        <div className="flex items-center  space-x-8 px-4 py-2 bg-[#18191a] absolute top-0 left-0 right-0 ">
+        <div className="flex items-center  space-x-8 px-4 py-2 dark:bg-dark-second border-b dark:border-dark-third absolute top-0 left-0 right-0 ">
           <div onClick={() => router.back()} className="   cursor-pointer ">
             <ArrowLeftIcon className="w-6 h-6  text-tw-blue" />
           </div>
@@ -92,8 +92,8 @@ const OneToOneChat = () => {
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-white">{Object.keys(Chat).length===0?existingChat.recieverName:currentId==Chat?.senderId?Chat?.recieverName:Chat?.sender}</span>
-              <span className="text-sm text-gray-200 font-light -mt-1">
+              <span className="text-sm font-semibold text-black dark:text-white">{Object.keys(Chat).length===0?existingChat.recieverName:currentId==Chat?.senderId?Chat?.recieverName:Chat?.sender}</span>
+              <span className="text-sm text-black dark:text-white font-semibold font-light -mt-1">
                 online
               </span>
             </div>

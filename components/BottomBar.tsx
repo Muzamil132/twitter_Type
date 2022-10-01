@@ -54,7 +54,7 @@ const id =session?.user.uid !==undefined && session?.user.uid
 
  
   return (
-    <div className='bg-black fixed bottom-0 left-0 right-0 sm:hidden flex justify-between px-3 py-3 border-t border-gray-700 '>
+    <div className='dark:bg-dark-main bg-white fixed bottom-0 left-0 right-0 sm:hidden flex justify-between px-3 py-3 border-t dark:border-dark-third '>
      {bottomBarIcons.map((item,id)=>(
         <BottomBarIcons key={id} href={item.href} Icon={item.icon}/>
       ))

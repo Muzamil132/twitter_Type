@@ -89,7 +89,7 @@ const ProfileHeader = ({name,profileImage}:IProps) => {
     <div>
         <Image layout='responsive' width={700} height={250}   className="" src={imageUrl}  alt="header image" />
         <div className="w-full flex items-end justify-between sm:-mt-[75px] -mt-[45px] px-4 ">
-            <div className='rounded-full border-4 z-[2] border-gray-200 sm:w-[135px] w-[90px]'>
+            <div className='rounded-full border-4 z-[2] dark:border-dark-third sm:w-[135px] w-[90px]'>
             <Image
            
             layout='responsive' width={150} height={150}   className="rounded-full" src={profileImage}  alt="header image" />
@@ -97,17 +97,17 @@ const ProfileHeader = ({name,profileImage}:IProps) => {
             </div>
             <div className='flex  space-x-1'>
             { 
-              isFollowing && <div   onClick={routeToChat} className="h-9 w-9 flex cursor-pointer  rounded-full items-center border border-gray-200 justify-center hover:bg-black">
-              <ChatIcon  className="w-6 text-gray-200"/>
+              isFollowing && <div   onClick={routeToChat} className="h-9 w-9 flex cursor-pointer  rounded-full items-center border dark:border-dtext2 justify-center ">
+              <ChatIcon  className="w-6 text-gray-900  dark:text-dtext1"/>
               </div>
             }
            
-            <div className="h-9 w-9 flex  cursor-pointer  rounded-full items-center border border-gray-200 justify-center hover:bg-black">
-            <DotsHorizontalIcon  className="w-6 text-gray-200"/>
+            <div className="h-9 w-9 flex  cursor-pointer  rounded-full items-center border dark:border-dtext2 justify-center ">
+            <DotsHorizontalIcon  className="w-6 dark:text-dtext2 text-gray-900"/>
             </div>
             <button 
               onClick={followHim}
-             className={`text-md shadow-xl ${isFollowing?"bg-blue-400 text-white ":" text-black bg-gray-100 "} outline-none " }    px-4 py-[0.35rem]   font-bold rounded-full `}>
+             className={`text-md shadow-xl ${isFollowing?"bg-blue-400 dark:dark-text-dtext1 ":" text-black bg-gray-100 "} outline-none " }    px-4 py-[0.35rem]   font-bold rounded-full `}>
              {isFollowing?("Following")   :"Follow"}
             </button>
             </div>
@@ -115,15 +115,15 @@ const ProfileHeader = ({name,profileImage}:IProps) => {
         </div>
         <div className='px-3 mt-5'>
         <p className="text-md font-bold">{name}</p>
-        <p className="text-sm text-gray-100">
+        <p className="text-sm text-black dark:text-white">
         @PathtoNowhereEN
         </p>
-        <p className="text-sm text-gray-100">
+        <p className="text-sm text-black dark:text-white">
         date of joing 
         </p>
         <Link href="/">
        
-        <p className='text-sm text-gray-200 font-semibold'  >{0} Following &nbsp;&nbsp;&nbsp;&nbsp; {15} Number of followers  </p>
+        <p className='text-sm dark:text-white text-black font-semibold'  >{0} Following &nbsp;&nbsp;&nbsp;&nbsp; {15} Number of followers  </p>
         </Link>
         </div>
         <div className='flex justify-between  mt-4 first-line sm:h-12  '>
@@ -133,7 +133,7 @@ const ProfileHeader = ({name,profileImage}:IProps) => {
                           
                            <div className='flex justify-center items-center cursor-pointer hover:bg-[#19181a]  w-full' >
                               {/* <p className={`border-b py-[10px] `}>Tweets</p> */}
-                                <div className={` h-full ${asPath==item.href && " border-b-2 border-blue-400"} flex justify-center items-center  `}>
+                                <div className={` h-full ${asPath==item.href && " border-b-2 border-blue-400"} flex justify-center items-center text-black dark:text-white `}>
                                   {item.title}
                                 </div>
                             </div>

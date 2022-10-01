@@ -31,7 +31,7 @@ console.log(User)
   return (
     <ProfileLayout>
       <div className="text-white">
-        <div className="flex items-center space-x-4 z-10  left-0 top-0 sticky bg-black bg-opacity-50 py-1 right-0 border-b border-gray-700  ">
+        <div className="flex items-center space-x-4 z-10  left-0 top-0 sticky dark:bg-dark-main bg-white bg-opacity-50 py-1 right-0 border-b dark:border-dark-third ">
           <div
             onClick={() => router.back()}
             className="h-8 w-8 flex hover:bg-[#18191a]   cursor-pointer rounded-full items-center  justify-center"
@@ -39,8 +39,8 @@ console.log(User)
             <ArrowLeftIcon className="w-5 text-tw-blue" />
           </div>
           <div className="flex flex-col">
-            <p className="text-lg font-bold">{User?.username}</p>
-            <p className="text-sm text-gray-200 ">Tweet</p>
+            <p className="text-lg text-black dark:text-white font-bold">{User?.username}</p>
+            <p className="text-sm text-black dark:text-white ">Tweet</p>
           </div>
         </div>
         <ProfileHeader profileImage={User?.userImg} name={User?.username}  />

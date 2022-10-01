@@ -60,21 +60,21 @@ const {data:session} =useSession()
           ))
         }
       </div>
-      <button className="hidden py-2 xl:inline ml-[3rem] bg-[#1d9bf0] text-white rounded-full w-56 h-[45px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
+      <button className="hidden py-2 xl:inline ml-[3rem] bg-[#1d9bf0] dark:bg-blue-500 text-white rounded-full w-56 h-[45px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
         Tweet
       </button>
       <div
-        className="text-[#d9d9d9] flex items-center justify-center mt-auto hoverAn xl:ml-[3rem] xl:-mr-5"
+        className="text-gray-900 dark:text-dtext1 bg-light1 dark:bg-dark-second flex items-center justify-center mt-auto hoverAn xl:ml-[3rem] xl:-mr-5"
        
       >
         <img
           src={session?.user.image}
           alt=""
-          className="h-8 w-8 rounded-full xl:mr-2.5"
+          className="h-6 w-6 rounded-full xl:mr-2.5"
         />
         <div className="hidden xl:inline leading-5">
-          <h4 className="font-bold">{session?.user.name}</h4>
-          <p className="text-[#6e767d] text-sm">{session?.user.tag}</p>
+          <h4 className="font-bold dark:text-dtext1  ">{session?.user.name}</h4>
+          <p className="dark:dtext2 text-sm">{session?.user.tag}</p>
         </div>
         <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10" />
       </div>

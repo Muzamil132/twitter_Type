@@ -77,7 +77,7 @@ const Home: NextPage<IProps> = ({providers}) => {
 
   return (
     <div>
-    <main className='bg-black min-h-screen  mx-auto relative  '>
+    <main className=' min-h-screen  mx-auto relative  '>
     {
      
      isOpen && 
@@ -89,7 +89,7 @@ const Home: NextPage<IProps> = ({providers}) => {
          {
      
      modalOpen && 
-    <div className='  fixed top-0 right-0 left-0 bottom-0 bg-white opacity-20 z-  ' >
+    <div className='  fixed top-0 right-0 left-0 bottom-0 bg-black opacity-20 z-20  ' >
 
     </div>
            
@@ -108,7 +108,7 @@ const Home: NextPage<IProps> = ({providers}) => {
      {
        modalOpen &&
        (
-        <div className='fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 min-h-[70%] z-50 bg-black sm:w-1/2 w-[90%] rounded-xl sm:rounded-2xl shadow-xl  overflow-y-auto  '>
+        <div className='fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 min-h-[70%] z-50 dark:bg-dark-second bg-white sm:w-1/2 w-[90%] rounded-xl sm:rounded-2xl shadow-xl  overflow-y-auto  '>
         <Modal>
           <FullViewImage/>
         </Modal>
@@ -132,7 +132,7 @@ export async function getServerSideProps(context:any) {
   const providers = await getProviders();
   // console.log(providers)
   const session = await getSession(context);
-  console.log(session)
+ 
 
   return {
     props: {

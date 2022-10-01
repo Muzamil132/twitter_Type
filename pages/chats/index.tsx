@@ -131,17 +131,17 @@ if(Chats!==undefined      && MyChats!==undefined) {
     // clean up
     return () => window.removeEventListener("click", handleClick);
   }, [activeSearch]);
-
+// 
   return (
     <Layoute>
       <div className="flex min-h-screen sm:w-[97%] w-full">
-        <div className={`sm:flex-[33%] ${pathname!=="/chats" &&"hidden sm:flex flex-col" }  flex-1 border-r border-gray-700`}>
+        <div className={`sm:flex-[33%] ${pathname!=="/chats" &&"hidden sm:flex flex-col" }  flex-1 border-r dark:border-dark-third`}>
           <div className="px-4 mt-4 flex  justify-between  ">
-            <p className="text-xl font-semibold text-white">Messages</p>
+            <p className="text-xl font-semibold text-black dark:text-white">Messages</p>
             <div className="flex space-x-3">
               {IconArray.map((item, id) => (
                 <div
-                  className="h-10 w-10 flex rounded-full hover:bg-neutral-800 justify-center items-center "
+                  className="h-10 w-10 flex rounded-full hover:dark:bg-dark-third hover:bg-light1 justify-center items-center "
                   key={id}
                 >
                   {" "}
@@ -154,16 +154,16 @@ if(Chats!==undefined      && MyChats!==undefined) {
             <div
               onClick={() => setSearchActive(true)}
               ref={searchBox}
-              className={`mt-3 bg-black border ${
-                !activeSearch && "border-[#18191a]"
+              className={`mt-3 dark:bg-dark-second bg-gray-100 border ${
+                !activeSearch && "dark:border-dark-third"
               }  flex space-x-2 rounded-full py-[0.45rem] sm:py-3 px-5 ${
-                activeSearch && "border-gray-200 border"
+                activeSearch && "dark:border-dark-dtext1 border-gray-400  border"
               }  `}
             >
-              <SearchIcon className="h-5 sm:h-6 text-white" />
+              <SearchIcon className="h-5 sm:h-6 dark:text-dtext1 text-gray-500" />
               <input
                 placeholder="Search Twitter"
-                className="outline-none text-white text-md sm:text-lg bg-transparent "
+                className="outline-none dark:text-dtext1    text-md sm:text-lg bg-transparent "
               />
             </div>
           </div>
@@ -225,12 +225,12 @@ if(Chats!==undefined      && MyChats!==undefined) {
              ))
           }
         </div>
-        <div className={`sm:flex-[62%]  ${pathname=="/chats" &&"hidden sm:flex " }  flex-1 border-r border-gray-700`}>
+        <div className={`sm:flex-[62%]  ${pathname=="/chats" &&"hidden sm:flex " }  flex-1 border-r dark:border-dark-third`}>
          {
             pathname=="/chats" &&    <div className="h-[100%] w-[100%] hidden sm:flex items-center justify-center">
             <div className="flex flex-col justify-start ">
-              <h1 className="text-3xl font-semibold">Select a Message</h1>
-              <span className="text-sm sm:text-lg text-gray-300 w-[350px]  ">
+              <h1 className="text-3xl text-black dark:text-white font-semibold">Select a Message</h1>
+              <span className="text-sm sm:text-lg dark:text-white text-black w-[350px]  ">
                 Choose from your existing conversations, start a new one, or
                 just keep swimming.
               </span>

@@ -54,20 +54,20 @@ useEffect(() => {
     <div
       onClick={() => setSearchActive(true)}
       ref={searchBox}
-      className={`mt-3  bg-[#18191a] flex space-x-2 rounded-full py-3 px-5 ${
+      className={`mt-3 bg-gray-100  dark:bg-dark-second flex space-x-2 rounded-full py-3 px-5 ${
         activeSearch && "border-blue-400 border"
       }  `}
     >
-      <SearchIcon className="h-6 text-white" />
+      <SearchIcon className="h-6 dark:text-dtext2 text-gray-500" />
       <input
         value={searchText}
         placeholder="Search Twitter"
-        className="outline-none text-white text-lg bg-[#18191a] "
+        className="outline-none text-white text-lg bg-transparent "
         onChange={(e)=>setSearchText(e.target.value)}
       />
     </div>
     {activeSearch && (
-      <div ref={SearchResultBox} className="bg-[#232425] border-gray-700 border h-[500px] w-full absolute top-[59px] rounded-lg overflow-y-auto ">
+      <div ref={SearchResultBox} className="bg-gray-100  dark:bg-dark-second h-[500px] w-full absolute top-[59px] rounded-lg overflow-y-auto ">
        {
          searchResult!=undefined && searchResult.map((item:any,id:number)=>(
           <p className='text-white' key={id}  >{item.username}</p>

@@ -1,6 +1,9 @@
 import { SparklesIcon } from '@heroicons/react/outline'
 import { MenuAlt4Icon } from '@heroicons/react/solid'
 import { NextPage } from 'next'
+
+import { useTheme } from 'next-themes';
+
 import React, { useState } from 'react'
 import { mobileSidebarState } from '../store/atoms'
 import CreatePost from './CreatePost'
@@ -13,6 +16,7 @@ import PostItem from './PostItem'
 import Loader from './Loader'
 import { useSession } from 'next-auth/react'
 import "notyf/notyf.min.css"
+import Image from 'next/image';
 export interface PostType{
   id:string,
   tag:string,
@@ -32,7 +36,10 @@ const TimeLine:NextPage = () => {
   const [Posts,setPosts]=useState<PostType[]>()
   const [isPostLoaded,setPostLoaded]=useState(false)
   const [isPostLiked,setPostLiked]=useState(false)
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
+  
 
 
 
@@ -70,19 +77,51 @@ const TimeLine:NextPage = () => {
    
   },[])
 
- 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  const currentTheme = theme === 'system' ? systemTheme : theme;
 
  
+
+
   return (
 
-    <div className=' text-white sm:ml-[80px] xl:ml-[330px] flex-grow max-w-[35rem] border-1 border-r border-l min-h-screen border-gray-700 ' >
-    <div className='text-[#d9d9d9d] flex items-center sm:justify-between  top-0 py-2 px-3 sticky border-b bg-black  border-gray-700' >
-    <button  onClick={()=>setISopen(true)} className=" sm:hidden  h-10 w-10 rounded-full text-gray-400 ">
+    <div className=' dark:text-dtext1 sm:ml-[80px] xl:ml-[330px] flex-grow max-w-[35rem] border-1 border-r border-l min-h-screen dark:border-dark-third' >
+    <div className='dark:dtext1 flex items-center sm:justify-between  top-0 py-2 px-3 sticky border-b dark:bg-dark-main bg-light1  z-10 dark:border-dark-third' >
+    {/* <button  onClick={()=>setISopen(true)} className=" sm:hidden  h-10 w-10 rounded-full text-gray-400 ">
             <MenuAlt4Icon  className="h-5"/>
-          </button>
-      <h2  className='text-lg sm:text-xl  font-bold  ' >Home</h2>
-      <div className='hoverAn px-0 py-0 flex  items-center justify-center h-10 w-10  '>
-      <SparklesIcon className='h-5 text-white'    />
+          </button> */}
+          <div className='w-full justify-between flex'>
+      <h2  className='text-lg sm:text-xl dark:text-dtext1 font-bold text-gray-900 ' >Home</h2>
+      <div className=' px-0 py-0 flex  items-center justify-center h-10 w-10  '>
+      {/* <SparklesIcon className='h-5 text-white'    /> */}
+      
+    
+          {currentTheme === 'dark' ? (
+            <button
+              className="outline-none   w-13  "
+              onClick={() => setTheme('light')}
+            >
+              {' '}
+              <Image src="/sun.svg" alt="logo" height="50px" width="50px" />
+            </button>
+          ) : (
+            <button
+              className=" w-13 outline-none "
+              onClick={() => setTheme('dark')}
+            >
+              <Image src="/moon.svg" alt="logo" height="50px" width="50px" />
+            </button>
+          )}
+    
+
+
+    </div>
+
+
       </div>
     
     </div>

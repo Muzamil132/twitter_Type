@@ -55,10 +55,10 @@ const ChatComponent = ({reciever,recieverImage,href,sender,senderId,senderImage,
     </div>
 
     <div className="flex flex-col">
-      <p className="text-sm sm:text-lg  font-semibold text-white">
+      <p className="text-sm sm:text-lg  font-semibold dark:text-white text-black">
         {currentId==senderId?reciever:sender}
       </p>
-      <span className="text-sm sm:text-md text-gray-200 t ">
+      <span className="text-sm sm:text-md dark:text-white text-black ">
         You accepted the request
       </span>
     </div>

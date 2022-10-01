@@ -127,7 +127,7 @@ const CreatePost=():JSX.Element=>{
     <div className="">
 
       <div
-        className={`flex flex-col space-x-2 items-center border-b border-gray-700 pb-2 `}
+        className={`flex flex-col space-x-2 items-center border-b dark:border-dark-third pb-2 `}
       >
         <div className="flex flex-row  w-full items-center  space-x-2 px-3 py-2">
          
@@ -143,14 +143,14 @@ const CreatePost=():JSX.Element=>{
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Whats happening . . . "
-            className="flex-1 py-4 bg-green outline-none bg-black  "
+            className="flex-1  dark-text-dtext2 py-4 bg-green outline-none bg-transparent "
           />
         </div>
 
          <div className=" flex flex-col w-full">
-          <div className=" w-1/3 px-1 py-2 ml-3  hoverAn items-center justify-center space-x-1 hidden sm:flex bo ">
-            <GlobeAltIcon className="h-5 w-5" />
-            <span>Every one can reply</span>
+          <div className=" w-1/3 px-1 py-2 ml-3  hoverAn items-center justify-center space-x-1 hidden sm:flex  ">
+            <GlobeAltIcon className="h-5 w-5 text-blue-400 dark:text-dtext1 " />
+            <span  className="text-blue-400 dark:text-dtext1"  >Every one can reply</span>
           </div>
           {isEmoji && (
           <div className="relative   ">
@@ -172,7 +172,7 @@ const CreatePost=():JSX.Element=>{
                 className="absolute w-8 h-8 bg-[#15181c] hover:bg-[#272c26] bg-opacity-75 rounded-full flex items-center justify-center top-1 left-1 cursor-pointer"
                 onClick={() => setSelectedFile(null)}
               >
-                <XIcon className="text-white h-5" />
+                <XIcon className="dark:text-dtext1 text-blue-400 h-5" />
               </div>
               <img
                 src={selectedFile.toString()}
@@ -202,7 +202,7 @@ const CreatePost=():JSX.Element=>{
 
                     <Icon
                       onClick={() => selectEmoji(Icon)}
-                      className="h-6  text-blue-400"
+                      className="h-6 text-blue-400  dark:text-dtext1"
                     />
                   </div>
                 ) : (
@@ -212,13 +212,13 @@ const CreatePost=():JSX.Element=>{
                   >
                     <Icon
                       onClick={() => selectEmoji(Icon)}
-                      className="h-6  text-blue-400 "
+                      className="h-6 text-blue-400 dark:text-dtext1 "
                     />
                   </div>
                 )
               )}
             </div>
-            <button disabled={loading} onClick={sendPost} className={`disabled:bg-opacity-50  mr-2 xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-[100px] h-[40px] text-lg font-bold shadow-md hover:bg-[#1a8cd8] hover:bg-opacity-80  `}>
+            <button disabled={loading} onClick={sendPost} className={`disabled:bg-opacity-50  mr-2 xl:inline ml-auto bg-blue-500  text-dtext1 t rounded-full w-[100px] h-[40px] text-lg font-bold shadow-md hover:bg-[#1a8cd8] hover:bg-opacity-80  `}>
               Tweet
             </button>
             

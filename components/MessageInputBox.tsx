@@ -89,25 +89,25 @@ const MessageInputBox = () => {
    }
 
   return (
-    <div className=' absolute bottom-0 right-0 left-0 px-4 py-[0.4rem] bg-black flex space-x-2 items-center border-t border-gray-700 '>
+    <div className=' absolute bottom-0 right-0 left-0 px-4 py-[0.4rem] dark:bg-dark-second bg-white flex space-x-2 items-center border-t dark:border-dark-third '>
       {
       !activeSearch?(
         <div className='flex space-x-2'>
 
-       <PhotographIcon className='h-6 w-6'/>
-        <FilmIcon className='h-6 w-6' />
+       <PhotographIcon className='h-6 w-6 text-gray-900 dark:text-dtext1'/>
+        <FilmIcon className='h-6 w-6 text-gray-900 dark:text-dtext1' />
         </div>
         ):(
-          <ChevronLeftIcon className='w-6 '   />
+          <ChevronLeftIcon className='w-6 text-gray-900 dark:text-dtext1 '   />
         )
 }
         <div
               onClick={() => setSearchActive(true)}
               ref={searchBox}
-              className={` bg-black border flex-1 ${
-                !activeSearch && "border-[#18191a]"
+              className={` dark:bg-dark-third bg-gray-100 border  flex-1 ${
+                !activeSearch && "dark:border-[#18191a]"
               }  flex space-x-2 rounded-full py-[0.45rem] sm:py-2 px-5 ${
-                activeSearch && "border-gray-200 border"
+                activeSearch && "dark:border-gray-500 "
               }  `}
             >
               
@@ -115,11 +115,11 @@ const MessageInputBox = () => {
                 value={messageText}
                 onChange={(e) => setMessageText(e.target.value)}
                 placeholder="Start a new message"
-                className="outline-none flex-1 text-white text-md sm:text-lg bg-transparent "
+                className="outline-none flex-1 text-black dark:text-white text-md sm:text-lg bg-transparent "
               />
-              <EmojiSadIcon className="h-6 w-6 text-white" />
+              <EmojiSadIcon className="h-6 w-6 text-gray-900 dark:text-dtext1" />
             </div>
-            <ArrowCircleRightIcon onClick={SendMessage}   className='w-6 h-6' />
+            <ArrowCircleRightIcon onClick={SendMessage}   className='w-6 h-6 text-gray-900 dark:text-dtext1' />
 
     </div>
   )

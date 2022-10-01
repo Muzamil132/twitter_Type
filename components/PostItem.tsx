@@ -18,8 +18,7 @@ interface IProps{
   tag:string,
   username:string,
   postId:string
-  commentsNumber:number
-  isPostLiked:boolean
+ 
 
 }
 
@@ -58,7 +57,7 @@ const user={
 
 
     return (
-        <div className=" border-gray-700 px-3 py-2 border-b hover:bg-[#18191a] cursor-pointer ">
+        <div className=" dark:border-dark-third px-3 py-2 border-b hover:dark:bg-dark-second cursor-pointer ">
          
           
             <div className="flex px-1 py-2">
@@ -67,12 +66,12 @@ const user={
 
             <div className="flex space-x-1 justify-between items-center">
             <div className="flex ">
-            <h1 className="text-sm font-bold  truncate">{username}</h1>
+            <h1 className="text-sm font-bold text-gray-900 dark:text-dtext1 truncate">{username}</h1>
             <CheckCircleIcon className="w-5  text-tw-blue "/>
            
             </div>
-            <div className="h-10 w-10 flex  rounded-full items-center  justify-center hover:bg-black">
-            <DotsHorizontalIcon  className="w-6 "/>
+            <div className="h-10 w-10 flex  rounded-full items-center  justify-center hover:dark:bg-dark-third hover:bg-light2">
+            <DotsHorizontalIcon  className="w-6 dark:text-dtext1 text-gray-500 "/>
             </div>
            
             </div>
@@ -87,7 +86,7 @@ const user={
 
           
           
-            <p className="text-left"  >
+            <p className="text-left text-gray-800 dark:text-dtext1 "  >
              {text}
             </p>
 
@@ -96,18 +95,18 @@ const user={
             {
               image &&  <img className="rounded-xl max-h-[500px] " src={image} alt="" />
             }    
-            </div>
+          </div>
             </div>
             </Link>
                <div  className="flex justify-between">
                <div onClick={()=>openModal(postId)} className="cursor-pointer flex items-center space-x-1 ">
                <Icons  Icon={ChatAlt2Icon} color="text-tw-blue"/>
 
-               <span className='text-gray-200 -mt-1'>{numberOfComment!>0 &&  numberOfComment}</span>
+               <span className='dark:text-dtext2 -mt-1'>{numberOfComment!>0 &&  numberOfComment}</span>
                </div>
              <div onClick={()=>LikePost(liked,postId,user)} className="cursor-pointer flex items-center space-x-1 "  >
-             <Icons isPostLiked={liked}  Icon={HeartIcon} color="text-red-400" />
-             <span className='text-gray-200 -mt-1'>{numberOfLikes!>0 &&  numberOfLikes}</span>
+             <Icons isPostLiked={liked}  Icon={HeartIcon} color="text-red-500" />
+             <span className='dark:text-dtext2 -mt-1'>{numberOfLikes!>0 &&  numberOfLikes}</span>
              </div>
             
               <Icons  Icon={ShareIcon} color="text-green-400"/>

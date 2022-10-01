@@ -37,16 +37,17 @@ const RightSidebar:NextPage<IProps> = ({onLayout}) => {
     <div className={`hidden  ${!onLayout && " fixed top-0 sm:ml-[895px] sm:w-[400px]"} sm:w-[400px] sm:flex flex-col`}>
       <div className="px-4 sm:px-6 sm:w-[460px] ">
         <SearchBox />
+        
         {/* Search Box Completed  */}
         <div className="h-[600px] overflow-y-auto pb-[50px] sm:w-[410px] sm:pr-4 ">
-
        
-        <div className="bg-neutral-900 rounded-xl h-[300px] overflow-y-auto py-3 mt-4">
-          <h1 className="text-2xl font-semibold mb-3 px-3 text-white">
+        <FollowersBox/>
+        <div className=" dark:bg-dark-second bg-gray-100 rounded-xl h-[300px] overflow-y-auto py-3 mt-4">
+          <h1 className="text-2xl font-semibold mb-3 px-3 dark:text-white">
             Trends for You
           </h1>
           <div>
-
+    
           
           {
             trendingArray.map((item,index)=>(
@@ -58,7 +59,7 @@ const RightSidebar:NextPage<IProps> = ({onLayout}) => {
         </div>
         {/* Trend Componet completd  */}
 
-        <FollowersBox/>
+       
         
         </div>
       </div>

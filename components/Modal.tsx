@@ -57,7 +57,7 @@ const Modal = ({ children }: any) => {
     <div className="p-3">
       <div
         onClick={() => setModalOpen(false)}
-        className="h-10 w-10 rounded-full text-white hover:bg-stone-900 flex items-center justify-center cursor-pointer  "
+        className="h-10 w-10 rounded-full dark:text-dtext1 text-gray-500 hover:dark:dark-third flex items-center justify-center cursor-pointer  "
       >
         <XIcon className="h-7" />
       </div>
@@ -71,15 +71,15 @@ const Modal = ({ children }: any) => {
         </div>
         <div className="flex flex-[0.8] sm:flex-1 flex-col">
           <div className="flex flex-row space-x-1">
-            <span className="text-white sm:text-xl font-semibold">
+            <span className="dark:text-dtext1 text-black sm:text-xl font-semibold">
               {session?.user.name}
             </span>
-            <span className="text-gray-400 sm:text-xl ">
+            <span className="text-gray-700 dark:text-dtext1 sm:text-xl ">
               {session?.user.tag}@990
             </span>
           </div>
        
-          <p className="text-gray-200 mt-2 text-md ">{post?.text}</p>
+          <p className="text-gray-700 dark:text-dtext1 mt-2 text-md ">{post?.text}</p>
         
         </div>
       </div>
@@ -92,7 +92,7 @@ const Modal = ({ children }: any) => {
             "user_image"
           />
         </div>
-        <textarea onChange={(e)=>setCommentText(e.target.value)}  value={commentText}  placeholder="Tweet your reply" className="outline-none bg-transparent flex-1  text-gray-100 text-xl "/>
+        <textarea onChange={(e)=>setCommentText(e.target.value)}  value={commentText}  placeholder="Tweet your reply" className="outline-none bg-transparent flex-1  text-gray-700 dark:text-dtext1 text-xl "/>
       </div>
       <div className="flex items-center justify-end  absolute bottom-4 right-4">
         <button onClick={addCommentToTweet} disabled={!commentText.trim()} className="py-2 px-3 bg-blue-500 outline-none rounded-3xl w-[120px] shadow-lg text-white font-bold disabled:bg-blue-200  ">

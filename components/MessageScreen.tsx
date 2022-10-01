@@ -14,7 +14,7 @@ const MessageScreen = ({messages}:IProps) => {
   const currentId = session?.user.uid != undefined ? session?.user.uid : "";
   return (
     <div
-    className='mt-[75px] h-[79vh] pb-3 overflow-y-auto '
+    className='mt-[75px] h-[79vh] pb-3 overflow-y-auto  '
     >
       <div className='px-4'>
         {
@@ -34,7 +34,7 @@ const MessageScreen = ({messages}:IProps) => {
                 }
             
 
-                <p className={`${currentId==message.currentId?"bg-blue-500 ":"bg-[#19181a]"} inline-block px-3 py-1 rounded-xl shadow-2xl`}>  {message.msg}</p>
+                <p className={`${currentId==message.currentId?"bg-blue-500 text-white dark:text-white":"dark:bg-dark-second   bg-gray-100  text-black  dark:text-dtext1"} inline-block px-3 py-1 rounded-xl`}>  {message.msg}</p>
               
               </div>
 

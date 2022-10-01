@@ -30,8 +30,8 @@ const {pathname} =useRouter()
 
 
   return (
-    <div className="bg-neutral-900 rounded-xl  overflow-y-auto py-3 mt-4">
-      <h1 className="text-2xl font-semibold mb-3 px-3 text-white">
+    <div className=" dark:bg-dark-second bg-gray-100 rounded-xl  overflow-y-auto py-3 mt-4">
+      <h1 className="text-2xl font-semibold mb-3 px-3 dark:text-gray-100 text-black">
         Want to follow
       </h1>
       {
@@ -41,7 +41,7 @@ const {pathname} =useRouter()
       }
       {
         !more && pathname!=='/addUsers' && Users!== undefined &&  Users.length>3 ? (
-            <div onClick={()=>setMore(true)} className="px-3 pb-5 text-white font-bold cursor-pointer">
+            <div onClick={()=>setMore(true)} className="px-3 pb-5 dark:text-white text-dark-main  font-bold cursor-pointer">
             <p >Show more</p>
             </div>
         ):(
@@ -53,7 +53,7 @@ const {pathname} =useRouter()
         }
          { more && 
          Users.length>3 &&
-          <div onClick={()=>setMore(false)} className="px-3 pb-5 text-white font-bold cursor-pointer">
+          <div onClick={()=>setMore(false)} className="px-3 pb-5 dark:text-white text-dark-main  font-bold cursor-pointer">
             <p >Show less</p>
             </div>
 }
