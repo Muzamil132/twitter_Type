@@ -1,11 +1,47 @@
 import { FilmIcon, PhotographIcon } from '@heroicons/react/outline'
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import React from 'react'
 
-const MessageScreen = () => {
+interface IProps{
+  messages:any
+}
+
+const MessageScreen = ({messages}:IProps) => {
+
+  const { data: session } = useSession();
+ 
+  const currentId = session?.user.uid != undefined ? session?.user.uid : "";
   return (
     <div
-    className='mt-[50px] min-h-[90vh] '
+    className='mt-[75px] h-[79vh] pb-3 overflow-y-auto '
     >
+      <div className='px-4'>
+        {
+          messages!== undefined && messages.map((message:any,id:any)=>(
+            <div key={id} className={`w-full flex   ${currentId==message.currentId?"justify-end ":"justify-start"} `} >
+              <div className={` mb-1   max-w-[80%] space-x-2  flex items-end`} >
+
+                {
+                  currentId!==message.currentId &&    <Image
+          
+                  height={25}
+                  width={25}
+                  src={message.senderImage}
+                  alt="name"
+                  className=" h-2 w-2 rounded-full -z-3 "
+                />
+                }
+            
+
+                <p className={`${currentId==message.currentId?"bg-blue-500 ":"bg-[#19181a]"} inline-block px-3 py-1 rounded-xl shadow-2xl`}>  {message.msg}</p>
+              
+              </div>
+
+              </div>
+          ))
+        }
+      </div>
         
     </div>
   )

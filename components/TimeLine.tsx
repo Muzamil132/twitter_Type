@@ -91,7 +91,7 @@ const TimeLine:NextPage = () => {
       !isPostLoaded? <div>
       {
         Posts!==undefined && Posts.map((post,id)=>(
-          <PostItem isPostLiked={isPostLiked} commentsNumber={post?.commentNumber}  postId={post.id} username={post.username} tag={post.tag}  key={id} text={post.text} image={post?.image}  avatar={post.userImg}   />
+          <PostItem   postId={post.id} username={post.username} tag={post.tag}  key={id} text={post.text} image={post?.image}  avatar={post.userImg}   />
         ))
       }
     </div>:(

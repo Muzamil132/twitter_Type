@@ -40,22 +40,31 @@ const {data:session} =useSession()
        <div className='mt-4 mb-1 space-y-2'>
         {
           ItemsList.map((item,id)=>(
+            item.text!=="Profile"?
             <SidebarLink  
             href={item.href}
             active={item.active}
             key={id}   
             text={item.text}
             Icon={item.Icon}
-            />    
+            />  :(
+              <SidebarLink  
+              href={`/profile/${session?.user.uid}`}
+              active={item.active}
+              key={id}   
+              text={item.text}
+              Icon={item.Icon}
+              />
+            )
 
           ))
         }
       </div>
-      <button className="hidden py-2 xl:inline ml-auto bg-[#1d9bf0] text-white rounded-full w-56 h-[45px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
+      <button className="hidden py-2 xl:inline ml-[3rem] bg-[#1d9bf0] text-white rounded-full w-56 h-[45px] text-lg font-bold shadow-md hover:bg-[#1a8cd8]">
         Tweet
       </button>
       <div
-        className="text-[#d9d9d9] flex items-center justify-center mt-auto hoverAn xl:ml-auto xl:-mr-5"
+        className="text-[#d9d9d9] flex items-center justify-center mt-auto hoverAn xl:ml-[3rem] xl:-mr-5"
        
       >
         <img

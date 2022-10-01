@@ -22,7 +22,8 @@ import {
     DotsHorizontalIcon,
   } from "@heroicons/react/outline";
 import { ReactComponentElement } from "react";
-import Home from "../pages";
+import Home from "../pages"
+
 
 export const ItemsList:SideBarItem[]=[
     {

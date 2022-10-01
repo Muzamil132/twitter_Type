@@ -34,11 +34,11 @@ const RightSidebar:NextPage<IProps> = ({onLayout}) => {
   ];
 
   return (
-    <div className={`hidden  ${!onLayout && " fixed top-0 sm:ml-[895px] sm:w-[435px]"} sm:w-[435px] sm:flex flex-col`}>
+    <div className={`hidden  ${!onLayout && " fixed top-0 sm:ml-[895px] sm:w-[400px]"} sm:w-[400px] sm:flex flex-col`}>
       <div className="px-4 sm:px-6 sm:w-[460px] ">
         <SearchBox />
         {/* Search Box Completed  */}
-        <div className="h-[700px] overflow-y-auto pb-[100px] sm:w-[410px] sm:pr-4 ">
+        <div className="h-[600px] overflow-y-auto pb-[50px] sm:w-[410px] sm:pr-4 ">
 
        
         <div className="bg-neutral-900 rounded-xl h-[300px] overflow-y-auto py-3 mt-4">
@@ -59,6 +59,7 @@ const RightSidebar:NextPage<IProps> = ({onLayout}) => {
         {/* Trend Componet completd  */}
 
         <FollowersBox/>
+        
         </div>
       </div>
     </div>

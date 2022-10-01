@@ -1,21 +1,83 @@
 import { ArrowLeftIcon } from "@heroicons/react/solid";
-import { useSession } from "next-auth/react";
+import { Category } from "emoji-mart";
+import { addDoc, collection, doc, DocumentData, getDoc, onSnapshot, orderBy, query } from "firebase/firestore";
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
+import { getProviders, getSession, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+import React,{useEffect,useState} from "react";
+import { useRecoilState } from "recoil";
 import Index from ".";
 import MessageInputBox from "../../components/MessageInputBox";
 import MessageScreen from "../../components/MessageScreen";
+import { useCurrentUserHook } from "../../customeHooks/CurentUser";
+import { db } from "../../firebase";
+import { currentChat } from "../../store/atoms";
 
 const OneToOneChat = () => {
   const { data: session } = useSession();
-  const imageUrl = session?.user.image != undefined ? session?.user.image : "";
-  const router = useRouter();
+ 
+  const currentId = session?.user.uid != undefined ? session?.user.uid : "";
+  const router=useRouter()
+  const [Chat,setChat] =useState<DocumentData>({})
+  const [message,setMessage] = useState<DocumentData>();
+  const recieverImg= router.query.recieverImg!=undefined?router.query.recieverImg!:"";
+  const recieverName= router.query.recieverName!= undefined ? router.query.recieverName! : "";
+  const [existingChat,setExistingChat]=useRecoilState(currentChat)
+  function getSingleChat(chatId: string,userId: string){
+   
+   
+     onSnapshot(doc(db, "Chats",chatId), (snapshot) => {
+      
+      if(snapshot.exists()){
+          setChat(snapshot.data())
+     
+    }
+    else{
+      setChat({})
+    }
+     
+  
+  }
+
+    );
+    
+  
+ 
+  }
+
+  useEffect(()=>{
+    const q= query(collection(db,"Chats",existingChat.conversationId,"MyChats"),orderBy("timestamp", "asc"))
+      
+    onSnapshot(q,(snapshot)=>{
+      var messagesArray :any=[]
+      snapshot.forEach((doc)=>{
+        messagesArray.push(doc.data())
+      })
+      setMessage(messagesArray)
+    })
+
+  },[existingChat.conversationId])
+
+  
+   console.log(message)
+  
+
+   useEffect(()=>{
+   getSingleChat(existingChat.conversationId,currentId)
+
+   },[existingChat.conversationId,currentId])
+
+
+
+
+
+ 
   return (
-    <Index>
+    <Index recieverImg={recieverImg.toString()} recieverName={recieverName.toString()}>
       <div className="flex flex-col h-screen w-full relative">
         {/* chatHeader  */}
-        <div className="flex items-center space-x-8 px-4 py-2 bg-[#18191a] absolute top-0 left-0 right-0 ">
+        <div className="flex items-center  space-x-8 px-4 py-2 bg-[#18191a] absolute top-0 left-0 right-0 ">
           <div onClick={() => router.back()} className="   cursor-pointer ">
             <ArrowLeftIcon className="w-6 h-6  text-tw-blue" />
           </div>
@@ -24,13 +86,13 @@ const OneToOneChat = () => {
               <Image
                 height={50}
                 width={50}
-                src={imageUrl}
+                src={Object.keys(Chat).length===0?existingChat.recieverImg:currentId==Chat?.senderId?Chat?.recieverImage:Chat?.senderImage}
                 alt="name"
                 className=" h-10 w-10 rounded-full -z-3 "
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-white">Muzamil</span>
+              <span className="text-sm font-semibold text-white">{Object.keys(Chat).length===0?existingChat.recieverName:currentId==Chat?.senderId?Chat?.recieverName:Chat?.sender}</span>
               <span className="text-sm text-gray-200 font-light -mt-1">
                 online
               </span>
@@ -40,7 +102,7 @@ const OneToOneChat = () => {
 
          
         {/* chatHeader done  */}
-        <MessageScreen/>
+        <MessageScreen messages={message}  />
         <MessageInputBox/>
       </div>
     </Index>
@@ -48,3 +110,35 @@ const OneToOneChat = () => {
 };
 
 export default OneToOneChat;
+
+
+//  async function getSingleChat(chatId: string,userId: string){
+//   console.log(chatId,"chatId",userId,"userId");
+//   onSnapshot(doc(db, "Chats", userId,"MyChats",chatId), (snapshot) => {
+//     console.log(snapshot.data(),"From MyChats")
+   
+//   });
+
+//   // const snapDoc =  await getDoc(doc(db,"Chats",userId,"MyChats",chatId));
+
+//   //   console.log(snapDoc.data(),"From MyChats")
+// }
+
+// export const getServerSideProps= async (context:any) => {
+//   const providers = await getProviders();
+ 
+//   const session = await getSession(context);
+//   const userId =session?.user.uid != undefined ? session?.user.uid : ""
+//   const roomId= context.query.conversationId
+//   getSingleChat( roomId,userId)
+ 
+
+// return {
+//   props: {
+  
+//   }
+// }
+
+
+// }
+

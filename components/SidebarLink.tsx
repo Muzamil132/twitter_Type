@@ -14,7 +14,7 @@ const SidebarLink:NextPage<IProps> = ({Icon,text,active,href}) => {
   return (
     <Link href={href} >
     <div
-    className={`text-[#d9d9d9] flex items-center justify-center xl:justify-start text-lg space-x-3 hoverAn xl:ml-20 ${active && 'font-bold'   }`}
+    className={`text-[#d9d9d9] flex items-center justify-center xl:justify-start text-lg space-x-3 hoverAn xl:ml-[3rem] ${active && 'font-bold'   }`}
     >
   <Icon className=" h-6"/>
   <span  className='hidden xl:inline text-md ' >{text}</span>

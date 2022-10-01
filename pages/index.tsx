@@ -81,7 +81,7 @@ const Home: NextPage<IProps> = ({providers}) => {
     {
      
      isOpen && 
-    <div className=' sm:hidden fixed top-0 right-0 left-0 bottom-0 bg-white bg-opacity-10 z-14  ' >
+    <div className=' sm:hidden fixed top-0 right-0 left-0 bottom-0 bg-white bg-opacity-10 z-30  ' >
 
     </div>
            
@@ -89,7 +89,7 @@ const Home: NextPage<IProps> = ({providers}) => {
          {
      
      modalOpen && 
-    <div className='  fixed top-0 right-0 left-0 bottom-0 bg-white opacity-20 z-25  ' >
+    <div className='  fixed top-0 right-0 left-0 bottom-0 bg-white opacity-20 z-  ' >
 
     </div>
            

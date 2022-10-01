@@ -11,17 +11,116 @@ import { InboxIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-const Index = ({children}:any) => {
+import { collection, DocumentData, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { useCurrentUserHook } from "../../customeHooks/CurentUser";
+import { db } from "../../firebase";
+import Loader from "../../components/Loader";
+import { useRecoilState } from "recoil";
+import { currentChat } from "../../store/atoms";
+import ChatComponent from "../../components/ChatComponent";
+
+interface IProps{
+recieverImg:string;
+recieverName:string;
+children:any
+}
+
+
+
+  const Index = ({children,recieverImg,recieverName}:IProps) => {
   const IconArray = [ChatIcon, CogIcon];
   const { data: session } = useSession();
   const imageUrl = session?.user.image != undefined ? session?.user.image : "";
   const [activeSearch, setSearchActive] = useState<boolean>(false);
-  const {pathname} =useRouter()
+  const currentId= session?.user.uid!== undefined? session?.user.uid:""
+  const {pathname,asPath} =useRouter()
   console.log(pathname)
   const searchBox = useRef<HTMLDivElement>(null);
   const SearchResultBox = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    // only add the event listener when the dropdown is opened
+  const [Chats,setChats]=useState<any>()
+  const [loading,setLoading]=useState<boolean>(false)
+  
+  const [MyChats,setMyChats]=useState<any>()
+  const [AllChats,setAllChats]=useState<DocumentData>()
+  const [existingChat,setExistingChat]=useRecoilState(currentChat)
+ 
+  console.log(currentId,"Current Id")
+
+
+  useEffect(()=>{
+       setLoading(true)
+      if(currentId!==""){
+        const q= query(collection(db,"Chats"),where("recieverId","==",currentId),
+        
+        )
+        onSnapshot(q,(snapshot)=>{
+          var chatsArray:any=[]
+        
+          snapshot.forEach(doc => {
+   
+              chatsArray.push({conversationId:doc.id,...doc.data()})
+          });
+           
+          setChats(chatsArray)
+          setLoading(false)
+       })
+        
+      }
+
+
+  
+
+  },[currentId])
+
+  useEffect(()=>{
+   
+   if(currentId!==""){
+     const q= query(collection(db,"Chats"),where("senderId","==",currentId),
+     
+     )
+     onSnapshot(q,(snapshot)=>{
+       var chatsArray:any=[]
+     
+       snapshot.forEach(doc => {
+
+           chatsArray.push({conversationId:doc.id,...doc.data()})
+       });
+        
+       setMyChats(chatsArray)
+      
+    })
+     
+   }
+
+
+
+
+},[currentId])
+
+
+
+useEffect(() => {
+  
+if(Chats!==undefined      && MyChats!==undefined) {
+
+  setAllChats([...Chats,...MyChats])
+
+}
+
+},[currentId,Chats,MyChats])
+
+
+
+
+
+
+
+  console.log(Chats,"Messages recieved")
+  console.log(MyChats,"Messages sended")
+  console.log(AllChats,"All My Chats")
+
+  useEffect(() =>  {
+   
     if (!activeSearch) return;
     function handleClick(event: any) {
       if (searchBox.current && !searchBox.current.contains(event.target)) {
@@ -70,7 +169,7 @@ const Index = ({children}:any) => {
           </div>
           {/* Message Request  */}
 
-          <div className="flex px-4 py-2 space-x-2 items-start mt-2 hover:bg-[#18191a] ">
+          {/* <div className="flex px-4 py-2 space-x-2 items-start mt-2 hover:bg-[#18191a] ">
             <div className="h-[2.5rem] w-[2.5rem] sm:w-[3rem] sm:h-[3rem] flex rounded-full border border-gray-500 justify-center items-center ">
               {" "}
               <InboxIcon className="h-5 w-5 sm:h-6 sm:w-6  " />
@@ -84,15 +183,15 @@ const Index = ({children}:any) => {
                 5 pending requests
               </span>
             </div>
-          </div>
+          </div> */}
           {/* Message Request Completed */}
-
-          <div className="flex px-4 py-2 space-x-2 items-start mt-2 hover:bg-[#18191a] ">
+          {/* {
+            asPath !=='/chats' &&            <div className="border-r-2 border-blue-400  flex px-4 py-2 space-x-2 items-start mt-2 bg-[#18191a] ">
             <div className="h-[2.5rem] w-[2.5rem] sm:w-[3rem] sm:h-[3rem] flex rounded-full ">
               <Image
                 height={50}
                 width={50}
-                src={imageUrl}
+                src={existingChat.recieverImg}
                 alt="name"
                 className=" h-11 w-11 rounded-full -z-3 "
               />
@@ -100,13 +199,31 @@ const Index = ({children}:any) => {
 
             <div className="flex flex-col">
               <p className="text-sm sm:text-lg  font-semibold text-white">
-                Message Requests
+                {existingChat.recieverName}
               </p>
               <span className="text-sm sm:text-md text-gray-200 t ">
                 You accepted the request
               </span>
             </div>
           </div>
+          } */}
+
+          {
+            loading?<Loader/>:
+             AllChats!== undefined && AllChats.length>0 &&   AllChats.map((chat:any,id:any)=>(
+              
+             
+              asPath!=="/chats"?(
+                chat?.recieverId !== existingChat.recieverId && 
+              
+
+              <ChatComponent   sender={chat?.sender}  senderId={chat?.senderId} senderImage={chat?.senderImage} href={chat?.conversationId}  key={id}  reciever={chat?.reciever} recieverId={chat?.recieverId}  recieverImage={chat?.recieverImage}  />
+              ):(
+                <ChatComponent    sender={chat?.sender}  senderId={chat?.senderId} senderImage={chat?.senderImage} href={chat?.conversationId}  key={id}  reciever={chat?.reciever} recieverId={chat?.recieverId}   recieverImage={chat?.recieverImage}  />
+              )
+
+             ))
+          }
         </div>
         <div className={`sm:flex-[62%]  ${pathname=="/chats" &&"hidden sm:flex " }  flex-1 border-r border-gray-700`}>
          {

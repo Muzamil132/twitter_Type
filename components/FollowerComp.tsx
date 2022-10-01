@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React,{useState,useEffect} from 'react'
 import { useFollowHook } from '../customeHooks/useFollowHook';
 import { db } from '../firebase';
+import Loader from './Loader';
 
 interface IProps{
     username:string,
@@ -15,14 +16,16 @@ interface IProps{
 
 
 const FollowerComp = ({username,userImg,userId}:IProps) => {
+
+   
     const { data: session } = useSession();
     const imageUrl = session?.user.image != undefined ? session?.user.image : "";
     const currentUserId=session?.user.uid!=undefined?session?.user.uid:""
    
    
-    const [isFollowing]=useFollowHook(userId,currentUserId)
+    const [isFollowing,loading]=useFollowHook(userId,currentUserId)
     const [unfollow,setUnfollow]=useState(false)
-    
+    console.log(loading)
 
 
     async function addFollower(e:any){
@@ -50,7 +53,9 @@ const FollowerComp = ({username,userImg,userId}:IProps) => {
     
 
   return (
+    loading?<Loader/>:
     <div className='cursor-pointer'>
+
       <Link  href={`/profile/${userId}`} >
       
          <div className="px-3 flex space-x-2 items-start mb-2 py-3  hover:bg-neutral-800">
