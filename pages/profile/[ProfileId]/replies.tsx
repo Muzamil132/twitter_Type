@@ -1,3 +1,4 @@
+import { getSession } from 'next-auth/react'
 import React from 'react'
 import NestedProfileLayout from '../../../components/NestedProfileLayout'
 
