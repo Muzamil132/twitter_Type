@@ -13,8 +13,10 @@ const MessageScreen = ({messages}:IProps) => {
  
   const currentId = session?.user.uid != undefined ? session?.user.uid : "";
   return (
+    <div className='relative'>
+      
     <div
-    className='mt-[75px] h-[79vh] pb-3 overflow-y-auto  '
+    className='mt-[50px] h-[83vh] pb-3 overflow-y-auto  '
     >
       <div className='px-4'>
         {
@@ -42,8 +44,8 @@ const MessageScreen = ({messages}:IProps) => {
           ))
         }
       </div>
-        
-    </div>
+       </div>
+    </div> 
   )
 }
 

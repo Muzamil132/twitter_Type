@@ -41,6 +41,8 @@ import Comments from "./Comments";
 import { useSession } from "next-auth/react";
 import { LikePost } from "../Utilities/functions";
 import { LikeHook } from "../customeHooks/isLikedHook";
+import { useUser } from "../customeHooks/useUser";
+import Image from "next/image";
 export interface PostType {
   id: string;
   tag: string;
@@ -94,7 +96,8 @@ const router=useRouter()
 
 }
 
-const userId =session?.user.uid !==undefined && session?.user.uid
+const userId =session?.user.uid !==undefined? session?.user.uid:""
+const User =useUser(userId)
   const id =postId !== undefined ? postId : "";
   const {liked,numberOfLikes}=LikeHook(id.toString(),userId.toString())
 
@@ -157,29 +160,29 @@ const userId =session?.user.uid !==undefined && session?.user.uid
   }
 
   return (
-    <div className="  text-white sm:ml-[80px] xl:ml-[330px] flex-grow max-w-[35rem] border-1 border-r border-l min-h-screen border-gray-700  ">
-        <div className="flex items-center space-x-4  top-0 sticky bg-black bg-opacity-50 py-3 ml-2  ">
+    <div className="  text-white sm:ml-[80px] xl:ml-[330px] flex-grow max-w-[35rem] border-1 border-r border-l min-h-screen dark:border-dark-third  ">
+        <div className="flex items-center space-x-4  top-0 sticky bg-white dark:bg-dark-main bg-opacity-50 py-3 ml-2  ">
 
 
          <div onClick={()=>router.back()}  className="h-10 w-10 flex hover:bg-[#18191a]   cursor-pointer rounded-full items-center  justify-center">
                     <ArrowLeftIcon className="w-6  text-tw-blue" />
          </div>
-         <p className="text-xl font-bold">Tweet</p>
+         <p className="text-xl tcolor text-gray-900 font-bold">Tweet</p>
          </div>
      
       {!isPostLoaded ? (
         <div>
-          <div className=" border-gray-700 px-3 border-b   cursor-pointer ">
+          <div className=" dark:border-dark-third  px-3 border-b   cursor-pointer ">
             <div className="flex px-1 py-2">
               <img
                 className="inline-block  h-11 w-11 rounded-full "
-                src={post?.userImg}
+                src={User?.user?.userImg}
                 alt="yyy"
               />
               <div className="flex flex-col w-full pl-2">
                 <div className="flex space-x-1 justify-between items-center">
                   <div className="flex ">
-                    <h1 className="text-sm font-bold  truncate">Muzamil</h1>
+                    <h1 className="text-sm font-bold text-black dark:text-white truncate">{post?.username}</h1>
                     <CheckCircleIcon className="w-5  text-tw-blue " />
                   </div>
                   <div className="h-10 w-10 flex  rounded-full items-center  justify-center hover:bg-black">
@@ -188,7 +191,7 @@ const userId =session?.user.uid !==undefined && session?.user.uid
                 </div>
 
                 <div className="cursor-pointer">
-                  <p className="text-left">{post?.text}</p>
+                  <p className="text-left  text-black dark:text-white ">{post?.text}</p>
 
                   <div className="py-3  overflow-hidden">
                     {post?.image && (
@@ -197,16 +200,16 @@ const userId =session?.user.uid !==undefined && session?.user.uid
                   </div>
                 </div>
 
-                <div className="flex justify-between border-b border-gray-700 -ml-4">
+                <div className="flex justify-between border-b dark:border-dark-third -ml-4">
                 <div  className="cursor-pointer flex items-center space-x-1 ">
                <Icons  Icon={ChatAlt2Icon} color="text-tw-blue"/>
 
-               <span className='text-gray-200 -mt-1'>{+numberOfComment!>0 &&  numberOfComment}</span>
+               <span className='text-black dark:text-white -mt-1'>{+numberOfComment!>0 &&  numberOfComment}</span>
                </div>
 
               <div onClick={()=>LikePost(Boolean(liked),id.toString(),user)} className="cursor-pointer flex items-center space-x-1 "  >
              <Icons isPostLiked={Boolean(liked)} Icon={HeartIcon} color="text-red-400" />
-             <span className='text-gray-200 -mt-1'>{+numberOfLikes!>0 &&  numberOfLikes}</span>
+             <span className='text-black dark:text-white -mt-1'>{+numberOfLikes!>0 &&  numberOfLikes}</span>
              </div>
                   <Icons Icon={ShareIcon} color="text-green-400" />
                   <Icons Icon={UploadIcon} color="text-tw-blue" />
@@ -215,15 +218,18 @@ const userId =session?.user.uid !==undefined && session?.user.uid
             </div>
             <div className="flex flex-col space-y-5 mt-3 px-2 pb-4">
               <div className="flex space-x-3">
-                <img
-                  className="inline-block  h-11 w-11 rounded-full "
-                  src={post?.userImg}
+                <Image
+                  width={40}
+                  height={40}
+                   
+                  className="inline-block  rounded-full "
+                  src={User?.user?.userImg}
                   alt="yyy"
                 />
                 <input
                   value={commentTitle}
                   onChange={(e)=>setCommentTitle(e.target.value)}
-                  className="bg-transparent outline-none text-gray-200 text-xl "
+                  className="bg-transparent   outline-none text-black  dark:text-white text-xl "
                   placeholder="Tweet your reply"
                 />
               </div>

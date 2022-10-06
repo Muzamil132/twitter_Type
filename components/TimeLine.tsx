@@ -1,4 +1,4 @@
-import { SparklesIcon } from '@heroicons/react/outline'
+import { CogIcon, SparklesIcon } from '@heroicons/react/outline'
 import { MenuAlt4Icon } from '@heroicons/react/solid'
 import { NextPage } from 'next'
 
@@ -17,6 +17,7 @@ import Loader from './Loader'
 import { useSession } from 'next-auth/react'
 import "notyf/notyf.min.css"
 import Image from 'next/image';
+import SettingDropDownManu from './SettingDropDownManu';
 export interface PostType{
   id:string,
   tag:string,
@@ -24,10 +25,13 @@ export interface PostType{
   text:string,
   timestamp:string,
   userImg:string
+  userId:string,
   username:string
   commentNumber:number,
   likes?:string[]
 }
+
+
 
 
 const TimeLine:NextPage = () => {
@@ -96,30 +100,11 @@ const TimeLine:NextPage = () => {
           </button> */}
           <div className='w-full justify-between flex'>
       <h2  className='text-lg sm:text-xl dark:text-dtext1 font-bold text-gray-900 ' >Home</h2>
-      <div className=' px-0 py-0 flex  items-center justify-center h-10 w-10  '>
-      {/* <SparklesIcon className='h-5 text-white'    /> */}
+      <div className='relative'>
+
       
-    
-          {currentTheme === 'dark' ? (
-            <button
-              className="outline-none   w-13  "
-              onClick={() => setTheme('light')}
-            >
-              {' '}
-              <Image src="/sun.svg" alt="logo" height="50px" width="50px" />
-            </button>
-          ) : (
-            <button
-              className=" w-13 outline-none "
-              onClick={() => setTheme('dark')}
-            >
-              <Image src="/moon.svg" alt="logo" height="50px" width="50px" />
-            </button>
-          )}
-    
-
-
-    </div>
+      <SettingDropDownManu/>
+       </div>
 
 
       </div>
@@ -130,7 +115,7 @@ const TimeLine:NextPage = () => {
       !isPostLoaded? <div>
       {
         Posts!==undefined && Posts.map((post,id)=>(
-          <PostItem   postId={post.id} username={post.username} tag={post.tag}  key={id} text={post.text} image={post?.image}  avatar={post.userImg}   />
+          <PostItem userId={post.userId}  postId={post.id} username={post.username} tag={post.tag}  key={id} text={post.text} image={post?.image}  avatar={post.userImg}   />
         ))
       }
     </div>:(

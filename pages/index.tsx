@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { getProviders, getSession, useSession } from "next-auth/react";
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Login from '../components/Login';
 import { MobileSideBar } from '../components/MobileSideBar';
 import Sidebar from '../components/Sidebar'
@@ -13,7 +13,7 @@ import {useRecoilState} from 'recoil'
 import Modal from '../components/Modal';
 import FullViewImage from '../components/FullViewImage';
 import {useEffect} from 'react'
-import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, onSnapshot, query, setDoc, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import SearchCompoent from '../components/RightSidebar';
 import BottomBar from '../components/BottomBar';
@@ -45,22 +45,36 @@ const Home: NextPage<IProps> = ({providers}) => {
   const [modalOpen ,setModalOpen]=useRecoilState(modalState)
   const { data: session } = useSession();
   
-  const id=session?.user.uid!=undefined && session?.user.uid
-  const addUsertoDb=async()=>{
+  const id=session?.user.uid!=undefined?session?.user.uid:""
+    async function addUser(){
+      await setDoc(doc(db,"Users",id.toString()),{
+        username: session?.user.name,
+        userImg : session?.user.image,
+        userId: session?.user.uid,
 
-    const userExist= await  getDoc(doc(db,"users",id.toString()))
-           if(userExist.exists()){
-              return 
-           }else{
-            await setDoc(doc(db,"Users",id.toString()),{
-              username:session?.user.name,
-              userId:session?.user?.uid,
-              userImg:session?.user?.image
-        })
 
-           }
+      })
+    }
+
+  const  addUsertoDb = useCallback(async()=>{
+   if(id){
+
    
+    onSnapshot(doc(db, "Users",id.toString()),(snapshot)=>{
+      if(!snapshot.exists()){
+        addUser()
+        
+      }
+      
+    })
   }
+
+
+
+
+  },[id])
+
+
    
   useEffect(()=>{
     if(session!==undefined){
@@ -68,7 +82,7 @@ const Home: NextPage<IProps> = ({providers}) => {
     }
     
 
-  },[])
+  },[session,addUsertoDb])
 
 
 
@@ -132,7 +146,14 @@ export async function getServerSideProps(context:any) {
   const providers = await getProviders();
   // console.log(providers)
   const session = await getSession(context);
- 
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: '/',
+  //       permanent: false,
+  //     },
+  //   }
+  // }
 
   return {
     props: {

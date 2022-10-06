@@ -2,9 +2,11 @@ import { collection, DocumentData, onSnapshot, query, where } from 'firebase/fir
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React, { useEffect ,useState} from 'react'
-import NestedProfileLayout from '../../components/NestedProfileLayout'
-import PostItem from '../../components/PostItem'
-import { db } from '../../firebase'
+import NestedProfileLayout from '../../../components/NestedProfileLayout'
+import PostItem from '../../../components/PostItem'
+import ProfileSettingModal from '../../../components/ProfileSettingModal'
+import { db } from '../../../firebase'
+
 
 const ProfileId = () => {
   const [Posts,setPosts]=useState<DocumentData>()
@@ -28,8 +30,12 @@ const ProfileId = () => {
   },[profileId1])
 
   console.log(Posts)
-
   return (
+    <div className='relative'>
+<div className=' fixed top-0 right-0 left-0 bottom-0 backdrop-contrast-50 bg-white/20 backdrop-blur-sm dark:bg-black/30 z-30  ' >
+
+</div>
+ <ProfileSettingModal/>
     <NestedProfileLayout>
 
       { Posts!==undefined && Posts.length==0?
@@ -37,11 +43,12 @@ const ProfileId = () => {
          You dont have any posts to display
         </div>:
         Posts!==undefined && Posts.map((post:any,id:any)=>(
-          <PostItem userId={post.userId}  postId={post.id} username={post.username} tag={post.tag}  key={id} text={post.text} image={post?.image}  avatar={post.userImg}   />
+          <PostItem   postId={post.id} username={post.username} tag={post.tag}  key={id} text={post.text} image={post?.image}  avatar={post.userImg}   />
         ))
       }
      
     </NestedProfileLayout>
+    </div>
   )
 }
 
@@ -60,7 +67,6 @@ export async function getServerSideProps(context:any) {
       },
     }
   }
-
   return {
     props: {
     

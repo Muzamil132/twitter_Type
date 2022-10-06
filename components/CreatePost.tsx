@@ -28,6 +28,7 @@ import {db,storage} from '../firebase'
 import Loader from "./Loader";
 import { useRecoilState } from "recoil";
 import Image from "next/image";
+import { useUser } from "../customeHooks/useUser";
 
 
 // import "emoji-mart/css/emoji-mart.css";
@@ -36,6 +37,9 @@ const CreatePost=():JSX.Element=>{
   const pickerRef = useRef<HTMLInputElement>(null);
 
   const {data:session} =useSession()
+ 
+const userId =session?.user.uid !==undefined? session?.user.uid:""
+const {user}=useUser(userId)
   // console.log(ref)
   const [input, setInput] = useState<string>("");
   const [loading,setLoading]=useState(false)
@@ -135,7 +139,7 @@ const CreatePost=():JSX.Element=>{
           
             height={50}
             width={50}
-            src={imageUrl}
+            src={user?.userImg}
             alt="name"
             className=" h-10 w-10 rounded-full -z-3 "
           />

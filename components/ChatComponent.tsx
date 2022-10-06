@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useRecoilState } from 'recoil'
+import { useUser } from '../customeHooks/useUser'
 import { currentChat } from '../store/atoms'
 
 interface IProps{
@@ -20,6 +21,9 @@ const ChatComponent = ({reciever,recieverImage,href,sender,senderId,senderImage,
   const {data:session }=useSession()
   const [existingChat,setExistingChat]=useRecoilState(currentChat)
   const currentId= session?.user.uid!== undefined? session?.user.uid:""
+
+const User =useUser(recieverId)
+const {user} =useUser(senderId)
   const router= useRouter()
   const {asPath}=router
  const chatHim=()=>{
@@ -48,7 +52,7 @@ const ChatComponent = ({reciever,recieverImage,href,sender,senderId,senderImage,
       <Image
         height={50}
         width={50}
-        src={currentId==senderId?recieverImage:senderImage}
+        src={currentId==senderId?User?.user?.userImg:user?.userImg}
         alt="name"
         className=" h-11 w-11 rounded-full -z-3 "
       />

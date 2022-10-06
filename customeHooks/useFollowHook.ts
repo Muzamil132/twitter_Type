@@ -15,7 +15,9 @@ export function useFollowHook(userId:string,currentUserId:string){
 
     const getAllFollowers =useCallback(()=>{
       setLoading(true)
-        
+      if(userId){
+
+      
       onSnapshot(collection(db, "Users", userId,"MyFollowers"), (snapshot) =>{
         var FollowersArray:any=[]
        
@@ -29,6 +31,7 @@ export function useFollowHook(userId:string,currentUserId:string){
         
     })
     setLoading(false) 
+  }
 
     },[userId])
 

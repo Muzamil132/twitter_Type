@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/solid";
 import { InboxIcon } from "@heroicons/react/outline";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { collection, DocumentData, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { useCurrentUserHook } from "../../customeHooks/CurentUser";
@@ -18,6 +18,7 @@ import Loader from "../../components/Loader";
 import { useRecoilState } from "recoil";
 import { currentChat } from "../../store/atoms";
 import ChatComponent from "../../components/ChatComponent";
+import SettingDropDownManu from "../../components/SettingDropDownManu";
 
 interface IProps{
 recieverImg:string;
@@ -28,7 +29,7 @@ children:any
 
 
   const Index = ({children,recieverImg,recieverName}:IProps) => {
-  const IconArray = [ChatIcon, CogIcon];
+  const IconArray = [ CogIcon];
   const { data: session } = useSession();
   const imageUrl = session?.user.image != undefined ? session?.user.image : "";
   const [activeSearch, setSearchActive] = useState<boolean>(false);
@@ -145,7 +146,8 @@ if(Chats!==undefined      && MyChats!==undefined) {
                   key={id}
                 >
                   {" "}
-                  <SvgIcon Icon={item} />
+                 
+                  <SettingDropDownManu/>
                 </div>
               ))}
             </div>
@@ -250,3 +252,24 @@ if(Chats!==undefined      && MyChats!==undefined) {
 };
 
 export default Index;
+export async function getServerSideProps(context:any) {
+
+
+  // console.log(providers)
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+ 
+}

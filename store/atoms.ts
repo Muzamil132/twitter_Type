@@ -1,5 +1,8 @@
-import {atom } from 'recoil'
+import { doc, DocumentData, onSnapshot } from 'firebase/firestore';
+import { useRef } from 'react';
+import {atom, selector, selectorFamily } from 'recoil'
 import { recoilPersist } from 'recoil-persist'
+import { db } from '../firebase';
 const { persistAtom } = recoilPersist()
 export const mobileSidebarState = atom({
     key: "sidebar",
@@ -28,4 +31,18 @@ export const mobileSidebarState = atom({
             conversationId:""
     },
     effects_UNSTABLE: [persistAtom],
+  });
+
+  interface ProfileSetting{
+    profileImage?:string | ArrayBuffer | null ,
+    headerImage?:string,
+    biodata?:string,
+    location?:string
+
+  }
+
+
+  export const profileState = atom<ProfileSetting  | any>({
+    key: "profileSetting",
+    default: {}
   });

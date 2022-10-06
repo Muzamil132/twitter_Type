@@ -24,6 +24,7 @@ const OneToOneChat = () => {
   const recieverImg= router.query.recieverImg!=undefined?router.query.recieverImg!:"";
   const recieverName= router.query.recieverName!= undefined ? router.query.recieverName! : "";
   const [existingChat,setExistingChat]=useRecoilState(currentChat)
+
   function getSingleChat(chatId: string,userId: string){
    
    
@@ -77,15 +78,17 @@ const OneToOneChat = () => {
     <Index recieverImg={recieverImg.toString()} recieverName={recieverName.toString()}>
       <div className="flex flex-col h-screen w-full relative">
         {/* chatHeader  */}
-        <div className="flex items-center  space-x-8 px-4 py-2 dark:bg-dark-second border-b dark:border-dark-third absolute top-0 left-0 right-0 ">
+        <div className="flex items-center  space-x-8 px-4 py-[2px] dark:bg-dark-second border-b dark:border-dark-third absolute top-0 left-0 right-0 ">
           <div onClick={() => router.back()} className="   cursor-pointer ">
-            <ArrowLeftIcon className="w-6 h-6  text-tw-blue" />
+            <ArrowLeftIcon className="w-6 h-6  text-black dark:text-white" />
           </div>
           <div className="flex space-x-2 items-center ">
             <div className=" flex rounded-full ">
               <Image
-                height={50}
-                width={50}
+               
+                width={40}
+                height={40}
+               
                 src={Object.keys(Chat).length===0?existingChat.recieverImg:currentId==Chat?.senderId?Chat?.recieverImage:Chat?.senderImage}
                 alt="name"
                 className=" h-10 w-10 rounded-full -z-3 "
@@ -127,18 +130,24 @@ export default OneToOneChat;
 // export const getServerSideProps= async (context:any) => {
 //   const providers = await getProviders();
  
-//   const session = await getSession(context);
-//   const userId =session?.user.uid != undefined ? session?.user.uid : ""
-//   const roomId= context.query.conversationId
-//   getSingleChat( roomId,userId)
+export async function getServerSideProps(context:any) {
+
+
+  // console.log(providers)
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {
+      session,
+    },
+  };
+
  
-
-// return {
-//   props: {
-  
-//   }
-// }
-
-
-// }
-
+}

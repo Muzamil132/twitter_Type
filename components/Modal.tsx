@@ -15,6 +15,8 @@ import {
 
 import { useSession } from "next-auth/react";
 import Router, { useRouter } from "next/router";
+import { useUser } from "../customeHooks/useUser";
+import Image from "next/image";
 
 const Modal = ({ children }: any) => {
   const [modalOpen, setModalOpen] = useRecoilState(modalState);
@@ -23,6 +25,9 @@ const Modal = ({ children }: any) => {
   const [post, setPost] = useState<DocumentData | undefined>();
   const { data: session } = useSession();
   const id=postId!==undefined && postId
+ const userId =session?.user.uid !==undefined? session?.user.uid:""
+const {user} = useUser(userId)
+const User = useUser(post?.userId)
    const router=useRouter()
   const getSinglePost = async () => {
    
@@ -44,6 +49,7 @@ const Modal = ({ children }: any) => {
       username: session?.user.name,
       tag: session?.user.tag,
       userImg: session?.user.image,
+      userId:post?.userId,
       timestamp: serverTimestamp(),
     })
 
@@ -62,13 +68,16 @@ const Modal = ({ children }: any) => {
         <XIcon className="h-7" />
       </div>
       <div className="flex sm:ml-6 mt-5 items-start space-x-2">
-        <div className="h-10 w-10 flex-[0.1]   sm:h-14 sm:w-14 ">
-          <img
+       
+          <Image
+            width={40}
+            height={40}
+           
             className="rounded-full "
-            src={post?.userImg}
+            src={User?.user?.userImg}
             alt="user_image"
           />
-        </div>
+        
         <div className="flex flex-[0.8] sm:flex-1 flex-col">
           <div className="flex flex-row space-x-1">
             <span className="dark:text-dtext1 text-black sm:text-xl font-semibold">
@@ -83,16 +92,19 @@ const Modal = ({ children }: any) => {
         
         </div>
       </div>
-      <div className="flex mt-10 sm:ml-6 items-center space-x-2">
-      <div className=" h-10 w-10   ">
-          <img
+      <div className="flex mt-10 sm:ml-6 items-center  space-x-2">
+      
+          <Image
+            width={40}
+            height={40}
+            
             className="rounded-full"
-            src={session?.user.image}
+            src={user?.userImg}
             alt=
             "user_image"
           />
-        </div>
-        <textarea onChange={(e)=>setCommentText(e.target.value)}  value={commentText}  placeholder="Tweet your reply" className="outline-none bg-transparent flex-1  text-gray-700 dark:text-dtext1 text-xl "/>
+      
+        <textarea onChange={(e)=>setCommentText(e.target.value)}  value={commentText}  placeholder="Tweet your reply" className="outline-none bg-transparent flex-1 mt-5  text-gray-700 dark:text-dtext1 text-xl "/>
       </div>
       <div className="flex items-center justify-end  absolute bottom-4 right-4">
         <button onClick={addCommentToTweet} disabled={!commentText.trim()} className="py-2 px-3 bg-blue-500 outline-none rounded-3xl w-[120px] shadow-lg text-white font-bold disabled:bg-blue-200  ">

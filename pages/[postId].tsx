@@ -47,7 +47,7 @@ const PostScreen: NextPage<IProps> = ({providers}) => {
 
   return (
     <div>
-    <main className='bg-black min-h-screen  mx-auto relative  '>
+    <main className=' min-h-screen  mx-auto relative  '>
     {
      
      isOpen && 
@@ -97,12 +97,22 @@ const PostScreen: NextPage<IProps> = ({providers}) => {
 export default PostScreen
 
 
+
+
 export async function getServerSideProps(context:any) {
 
   const providers = await getProviders();
   // console.log(providers)
   const session = await getSession(context);
   console.log(session)
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
 
   return {
     props: {

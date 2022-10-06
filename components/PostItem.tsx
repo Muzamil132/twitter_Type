@@ -10,11 +10,13 @@ import { db } from '../firebase'
 import { useSession } from 'next-auth/react'
 import { LikePost } from '../Utilities/functions'
 import { LikeHook } from '../customeHooks/isLikedHook'
+import { useUser } from '../customeHooks/useUser'
 
 interface IProps{
   text:string
   image:string
   avatar:string
+  userId?:string,
   tag:string,
   username:string,
   postId:string
@@ -22,7 +24,7 @@ interface IProps{
 
 }
 
-const PostItem = ({text,image,avatar,username,tag,postId}:IProps) => {
+const PostItem = ({text,userId,image,avatar,username,tag,postId}:IProps) => {
 
 
 
@@ -33,7 +35,9 @@ const {data:session} =useSession()
 
 const id =session?.user.uid !==undefined && session?.user.uid
 const {liked,numberOfLikes,numberOfComment} =LikeHook(postId,id.toString())
-
+const userId1=userId!==undefined ? userId : ""
+const User=useUser(userId1)
+console.log(User.user)
 const openModal=(postId:string)=>{
   setModalOpen(true)
   setPostId(postId)
@@ -61,7 +65,7 @@ const user={
          
           
             <div className="flex px-1 py-2">
-            <img className="inline-block  h-11 w-11 rounded-full " src={avatar} alt="yyy"/>
+            <img className="inline-block  h-11 w-11 rounded-full " src={User?.user?.userImg} alt="yyy"/>
             <div className="flex flex-col w-full pl-2">
 
             <div className="flex space-x-1 justify-between items-center">

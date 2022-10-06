@@ -2,6 +2,7 @@ import { SearchIcon } from '@heroicons/react/solid';
 import { collection, DocumentData, onSnapshot, query, where } from 'firebase/firestore';
 import React ,{useState,useRef,useEffect} from 'react'
 import { db } from '../firebase';
+import FollowerComp from './FollowerComp';
 
 
 const SearchBox = () => {
@@ -62,15 +63,16 @@ useEffect(() => {
       <input
         value={searchText}
         placeholder="Search Twitter"
-        className="outline-none text-white text-lg bg-transparent "
+        className="outline-none tcolor  text-lg bg-transparent "
         onChange={(e)=>setSearchText(e.target.value)}
       />
     </div>
     {activeSearch && (
-      <div ref={SearchResultBox} className="bg-gray-100  dark:bg-dark-second h-[500px] w-full absolute top-[59px] rounded-lg overflow-y-auto ">
+      <div ref={SearchResultBox} className="bg-gray-100 min-h-[100px]  dark:bg-dark-second  p-2 w-full absolute top-[59px] rounded-lg overflow-y-auto ">
        {
          searchResult!=undefined && searchResult.map((item:any,id:number)=>(
-          <p className='text-white' key={id}  >{item.username}</p>
+          <FollowerComp username={item.username} userImg={item.userImg} userId ={item.userId}  key={id} />
+         
          ))
        }
       

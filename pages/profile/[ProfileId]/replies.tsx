@@ -10,3 +10,24 @@ const Replies = () => {
 }
 
 export default Replies
+
+export async function getServerSideProps(context:any) {
+
+
+  // console.log(providers)
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {
+    
+    },
+  };
+ 
+}

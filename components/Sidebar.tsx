@@ -16,15 +16,19 @@ import {
 } from "@heroicons/react/outline";
 import { ItemsList } from './SidebarItemlist';
 import { signOut, useSession } from "next-auth/react";
+import { useUser } from '../customeHooks/useUser';
 
 const Sidebar:NextPage = () => {
   
 const {data:session} =useSession()
+const userId =session?.user.uid !==undefined? session?.user.uid:""
+const {user}=useUser(userId)
+
   return (
     <div
     className='hidden  sm:flex flex-col item-center lg:items-start xl:w-[320px] p-2 fixed h-full'
     >
-      <div className='w-16 h-16    flex justify-center items-center hoverAn  p-0 sm:p-3 xl:ml-24'>
+      <div className='w-16 h-16    flex justify-center items-center hoverAn  p-0 sm:p-3 xl:ml-14'>
       <svg
                 viewBox="0 0 24 24"
                 className="w-8 h-8 text-blue-400 dark:text-white"
@@ -67,13 +71,15 @@ const {data:session} =useSession()
         className="text-gray-900 dark:text-dtext1 bg-light1 dark:bg-dark-second flex items-center justify-center mt-auto hoverAn xl:ml-[3rem] xl:-mr-5"
        
       >
-        <img
-          src={session?.user.image}
+        <Image
+          width={25}
+          height={25}
+          src={user?.userImg}
           alt=""
-          className="h-6 w-6 rounded-full xl:mr-2.5"
+          className="rounded-full xl:mr-2.5"
         />
         <div className="hidden xl:inline leading-5">
-          <h4 className="font-bold dark:text-dtext1  ">{session?.user.name}</h4>
+          <h4 className="font-bold text-md dark:text-dtext1  ">{session?.user.name}</h4>
           <p className="dark:dtext2 text-sm">{session?.user.tag}</p>
         </div>
         <DotsHorizontalIcon className="h-5 hidden xl:inline ml-10" />
