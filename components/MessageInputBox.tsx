@@ -147,7 +147,7 @@ const MessageInputBox = () => {
             {
               selectedFile!==null  && selectedFile!==undefined && !loading &&
 
-            <div className=" absolute  bottom-0 dark:bg-dark-second rounded-xl w-[400px] bg-gray-100  sm:w-[600px] h-[250px]">
+            <div className=" absolute  bottom-0 dark:bg-dark-second rounded-xl w-[350px] bg-gray-100  sm:w-[600px] h-[250px]">
               <div
                 className="w-8 absolute right-2 cursor-pointer top-2 h-8 rounded-full dark:bg-dark-second bg-gray-100 flex justify-center items-center "
                 onClick={() => setSelectedFile(null)}
