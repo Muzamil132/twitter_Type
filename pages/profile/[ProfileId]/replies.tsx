@@ -5,7 +5,9 @@ import NestedProfileLayout from '../../../components/NestedProfileLayout'
 const Replies = () => {
   return (
     <NestedProfileLayout>
-        <p>Replies here</p>
+         <div className='flex justify-center items-center tcolor p-4'>
+        Comming soon
+    </div>
     </NestedProfileLayout>
   )
 }

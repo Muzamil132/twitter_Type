@@ -169,47 +169,7 @@ if(Chats!==undefined      && MyChats!==undefined) {
               />
             </div>
           </div>
-          {/* Message Request  */}
-
-          {/* <div className="flex px-4 py-2 space-x-2 items-start mt-2 hover:bg-[#18191a] ">
-            <div className="h-[2.5rem] w-[2.5rem] sm:w-[3rem] sm:h-[3rem] flex rounded-full border border-gray-500 justify-center items-center ">
-              {" "}
-              <InboxIcon className="h-5 w-5 sm:h-6 sm:w-6  " />
-            </div>
-
-            <div className="flex flex-col">
-              <p className="text-sm sm:text-lg  font-semibold text-white">
-                Message Requests
-              </p>
-              <span className="text-sm sm:text-md text-gray-200 ">
-                5 pending requests
-              </span>
-            </div>
-          </div> */}
-          {/* Message Request Completed */}
-          {/* {
-            asPath !=='/chats' &&            <div className="border-r-2 border-blue-400  flex px-4 py-2 space-x-2 items-start mt-2 bg-[#18191a] ">
-            <div className="h-[2.5rem] w-[2.5rem] sm:w-[3rem] sm:h-[3rem] flex rounded-full ">
-              <Image
-                height={50}
-                width={50}
-                src={existingChat.recieverImg}
-                alt="name"
-                className=" h-11 w-11 rounded-full -z-3 "
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <p className="text-sm sm:text-lg  font-semibold text-white">
-                {existingChat.recieverName}
-              </p>
-              <span className="text-sm sm:text-md text-gray-200 t ">
-                You accepted the request
-              </span>
-            </div>
-          </div>
-          } */}
-
+       
           {
             loading?<Loader/>:
              AllChats!== undefined && AllChats.length>0 &&   AllChats.map((chat:any,id:any)=>(

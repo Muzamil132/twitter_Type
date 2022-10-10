@@ -79,12 +79,7 @@ const SinglePostWithComments = () => {
 
 const router=useRouter()
  const {query:{postId,numberOfComment}}=useRouter()
-  //  const parsBool =(liked:string | string[] | undefined):boolean=>{
-  // //   if(liked==="false"){
-  // //     return false
-  // //   }
-  // //   return true
-  // //  }
+
  
   const {data:session}=useSession()
   const user={
@@ -116,6 +111,7 @@ const User =useUser(userId)
       username: session?.user.name,
       tag: session?.user.tag,
       userImg: session?.user.image,
+      userId:session?.user.uid,
       timestamp: serverTimestamp(),
     })
 
@@ -176,7 +172,7 @@ const User =useUser(userId)
             <div className="flex px-1 py-2">
               <img
                 className="inline-block  h-11 w-11 rounded-full "
-                src={User?.user?.userImg}
+                src={post?.userImg}
                 alt="yyy"
               />
               <div className="flex flex-col w-full pl-2">
@@ -243,7 +239,7 @@ const User =useUser(userId)
           {
             comments!==undefined && comments.map((comment,id)=>(
 
-              <Comments userId={post?.userId} key={id} commentText={comment.comment} userImg={comment.userImg} username={comment.username} />
+              <Comments userId={comment?.userId} key={id} commentText={comment.comment} userImg={comment.userImg} username={comment.username} />
             ))
           }
         

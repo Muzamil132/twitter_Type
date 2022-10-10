@@ -90,7 +90,7 @@ const user={
 
           
           
-            <p className="text-left text-gray-800 dark:text-dtext1 "  >
+            <p className="text-left text-gray-800 text-sm dark:text-dtext1 "  >
              {text}
             </p>
 

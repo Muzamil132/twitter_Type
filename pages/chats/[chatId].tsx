@@ -96,7 +96,7 @@ const OneToOneChat = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-semibold text-black dark:text-white">{Object.keys(Chat).length===0?existingChat.recieverName:currentId==Chat?.senderId?Chat?.recieverName:Chat?.sender}</span>
-              <span className="text-sm text-black dark:text-white font-semibold font-light -mt-1">
+              <span className="text-sm text-black dark:text-white font-semibold  -mt-1">
                 online
               </span>
             </div>
@@ -105,7 +105,7 @@ const OneToOneChat = () => {
 
          
         {/* chatHeader done  */}
-        <MessageScreen messages={message}  />
+        <MessageScreen chatId={existingChat?.conversationId}  messages={message}  />
         <MessageInputBox/>
       </div>
     </Index>
@@ -115,21 +115,7 @@ const OneToOneChat = () => {
 export default OneToOneChat;
 
 
-//  async function getSingleChat(chatId: string,userId: string){
-//   console.log(chatId,"chatId",userId,"userId");
-//   onSnapshot(doc(db, "Chats", userId,"MyChats",chatId), (snapshot) => {
-//     console.log(snapshot.data(),"From MyChats")
-   
-//   });
 
-//   // const snapDoc =  await getDoc(doc(db,"Chats",userId,"MyChats",chatId));
-
-//   //   console.log(snapDoc.data(),"From MyChats")
-// }
-
-// export const getServerSideProps= async (context:any) => {
-//   const providers = await getProviders();
- 
 export async function getServerSideProps(context:any) {
 
 

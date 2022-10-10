@@ -80,11 +80,11 @@ const User = useUser(post?.userId)
         
         <div className="flex flex-[0.8] sm:flex-1 flex-col">
           <div className="flex flex-row space-x-1">
-            <span className="dark:text-dtext1 text-black sm:text-xl font-semibold">
-              {session?.user.name}
+            <span className="dark:text-dtext1 text-black text-lg font-semibold">
+              {post?.username}
             </span>
-            <span className="text-gray-700 dark:text-dtext1 sm:text-xl ">
-              {session?.user.tag}@990
+            <span className="text-gray-700 dark:text-dtext1 text-md ">
+              {post?.username}@990
             </span>
           </div>
        
@@ -104,7 +104,7 @@ const User = useUser(post?.userId)
             "user_image"
           />
       
-        <textarea onChange={(e)=>setCommentText(e.target.value)}  value={commentText}  placeholder="Tweet your reply" className="outline-none bg-transparent flex-1 mt-5  text-gray-700 dark:text-dtext1 text-xl "/>
+        <textarea onChange={(e)=>setCommentText(e.target.value)}  value={commentText}  placeholder="Tweet your reply" className="outline-none bg-transparent flex-1 mt-5  text-gray-700 dark:text-dtext1 text-lg "/>
       </div>
       <div className="flex items-center justify-end  absolute bottom-4 right-4">
         <button onClick={addCommentToTweet} disabled={!commentText.trim()} className="py-2 px-3 bg-blue-500 outline-none rounded-3xl w-[120px] shadow-lg text-white font-bold disabled:bg-blue-200  ">

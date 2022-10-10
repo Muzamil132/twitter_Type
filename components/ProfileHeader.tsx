@@ -36,11 +36,13 @@ const ProfileHeader = ({ name, profileImage }: IProps) => {
     router.query.ProfileId !== undefined ? router.query.ProfileId : "";
   const [existingChat, setExistingChat] = useRecoilState(currentChat);
   const [currentId, username, userImg] = useCurrentUserHook();
-  const {user} =useUser(currentId)
+  const {user} =useUser(profileId1.toString())
   const [isFollowing] = useFollowHook(
     profileId1.toString(),
     currentId.toString()
   );
+
+  console.log(profileId1,"profileId1")
 
   const imageUrl =
     "https://cdn.pixabay.com/photo/2019/09/26/18/57/wasp-4506782_960_720.jpg";
@@ -107,7 +109,7 @@ const ProfileHeader = ({ name, profileImage }: IProps) => {
         width={700}
         height={250}
         className="-z-3"
-        src={user?.headerImg}
+        src={user?.headerImg?user?.userImg:imageUrl}
         alt="header image"
       />
       <div className="w-full flex items-end justify-between sm:-mt-[75px] -mt-[45px] px-4 ">

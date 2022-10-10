@@ -1,6 +1,7 @@
 import { ChatAlt2Icon, DotsHorizontalIcon, HeartIcon, ShareIcon, UploadIcon } from "@heroicons/react/solid";
 import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useUser } from "../customeHooks/useUser";
@@ -25,8 +26,10 @@ const Comments = ({ userId, commentText, username,userImg }: IProps) => {
     <div className="px-4 py-2 border-b dark:border-dark-third">
       <div className="flex space-x-3 items-start">
         <Link href={`/profile/${userId}`}>
-          <img
-            className="inline-block  h-11 w-11 rounded-full "
+          <Image
+            width={40}
+            height={40}
+            className="inline-block  rounded-full "
             src={user?.userImg}
             alt="yyy"
           />
