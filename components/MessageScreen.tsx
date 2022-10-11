@@ -16,7 +16,7 @@ const MessageScreen = ({messages,chatId}:IProps) => {
  
   const currentId = session?.user.uid != undefined ? session?.user.uid : "";
   return (
-    <div className='relative h-screen'>
+    
 
       
     <div
@@ -62,7 +62,7 @@ const MessageScreen = ({messages,chatId}:IProps) => {
         }
       </div>
        </div>
-    </div> 
+    
   )
 }
 

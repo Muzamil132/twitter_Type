@@ -77,10 +77,10 @@ const OneToOneChat = () => {
   return (
     <Index recieverImg={recieverImg.toString()} recieverName={recieverName.toString()}>
       <div className="flex flex-col h-screen w-full relative">
-        {/* chatHeader  */}
+        
         <div className="flex items-center  space-x-8 px-4 py-[4px] dark:bg-dark-second border-b dark:border-dark-third absolute top-0 left-0 right-0 ">
-          <div onClick={() => router.back()} className="cursor-pointer h-10 w-10 rounded-full flex justify-center items-center dark:bg-dark-third bg-gray-100 ">
-            <ArrowLeftIcon className="w-6 h-6  text-black dark:text-white" />
+          <div className="cursor-pointer  h-10 w-10 rounded-full flex justify-center items-center dark:bg-dark-third bg-gray-100 ">
+            <ArrowLeftIcon  onClick={() => router.back()}  className="w-7 h-7   text-black dark:text-white" />
           </div>
           <div className="flex space-x-2 items-center ">
             <div className=" flex rounded-full ">
