@@ -176,7 +176,7 @@ const MessageInputBox = () => {
 }
             <label className="cursor-pointer">
               <input onChange={selectImage} className="hidden" type="file" />
-              <PhotographIcon className="h-7 w-7 first-letter:text-gray-900 dark:text-dtext1" />
+              <PhotographIcon className="h-7 w-7 first-letter text-gray-900 dark:text-dtext1" />
             </label>
           </div>
 
