@@ -140,7 +140,7 @@ const MessageInputBox = () => {
   };
 
   return (
-    <div className=" absolute bottom-0 right-0 left-0 px-4 py-[0.2rem] dark:bg-dark-main bg-white flex space-x-2 items-center border-t dark:border-dark-third ">
+    <div className=" sticky bottom-0 right-0 left-0 px-4 py-[0.2rem] dark:bg-dark-main bg-white flex space-x-2 items-center border-t dark:border-dark-third ">
       {!activeSearch ? (
         <div className="flex space-x-2">
           <div className="relative">
