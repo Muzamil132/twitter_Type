@@ -38,6 +38,7 @@ const RightSidebar:NextPage<IProps> = ({onLayout}) => {
       <div className="px-4 sm:px-6 sm:w-[460px] ">
         <SearchBox />
         
+        
         {/* Search Box Completed  */}
         <div className="h-[600px] overflow-y-auto pb-[50px] sm:w-[410px] sm:pr-4 ">
        

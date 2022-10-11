@@ -23,7 +23,7 @@ const FollowerComp = ({username,userImg,userId}:IProps) => {
     const currentUserId=session?.user.uid!=undefined?session?.user.uid:""
    
    
-    const [isFollowing,loading]=useFollowHook(userId,currentUserId)
+    const {isFollowing,loading}=useFollowHook(userId,currentUserId)
     const [unfollow,setUnfollow]=useState(false)
     console.log(loading)
 

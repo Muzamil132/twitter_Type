@@ -4,6 +4,7 @@ interface IProps{
     Icon:any
 }
 
+
 const SvgIcon = ({Icon}:IProps) => {
   return (
     <div>

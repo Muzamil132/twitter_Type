@@ -5,7 +5,7 @@ import {
   InboxInIcon,
 } from "@heroicons/react/solid";
 import { profile } from "console";
-import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react"; 
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -37,7 +37,7 @@ const ProfileHeader = ({ name, profileImage }: IProps) => {
   const [existingChat, setExistingChat] = useRecoilState(currentChat);
   const [currentId, username, userImg] = useCurrentUserHook();
   const {user} =useUser(profileId1.toString())
-  const [isFollowing] = useFollowHook(
+  const {isFollowing,Followers} = useFollowHook(
     profileId1.toString(),
     currentId.toString()
   );
@@ -48,7 +48,7 @@ const ProfileHeader = ({ name, profileImage }: IProps) => {
     "https://cdn.pixabay.com/photo/2019/09/26/18/57/wasp-4506782_960_720.jpg";
   const image =
     "https://cdn.pixabay.com/photo/2022/09/13/11/29/girl-7451711_960_720.jpg";
-
+    const headerImageUrl=user?.headerImg?user?.headerImg:imageUrl
   const profileNavItem = [
     {
       title: "Tweets",
@@ -104,25 +104,41 @@ const ProfileHeader = ({ name, profileImage }: IProps) => {
   };
   return (
     <div>
+      <Link
+      className="cursor-pointer"
+      href={{
+        pathname:`/profile/${profileId1}/headerImage`,
+        query:{imageUrl:headerImageUrl}
+      }}>
       <Image
         layout="responsive"
         width={700}
         height={250}
-        className="-z-3"
-        src={user?.headerImg?user?.userImg:imageUrl}
+        className="-z-3 cursor-pointer"
+        src={headerImageUrl}
         alt="header image"
       />
+      </Link>
       <div className="w-full flex items-end justify-between sm:-mt-[75px] -mt-[45px] px-4 ">
-        <div className="rounded-full border-4 z-[2] dark:border-dark-third sm:w-[135px] w-[90px]">
+      <Link
+       
+       href={{
+         pathname:`/profile/${profileId1}/profileImage`,
+         query:{imageUrl:user?.userImg}
+       }}>
+        <div className=" cursor-pointer rounded-full border-4 z-[2] dark:border-dark-third sm:w-[135px] w-[90px]">
+        
           <Image
             layout="responsive"
             width={150}
             height={150}
-            className="rounded-full -z-10"
+            className="rounded-full -z-10 cursor-pointer"
             src={user?.userImg}
             alt="header image"
           />
+          
         </div>
+        </Link>
         {currentId == profileId1 ? (
           <div>
             <button
@@ -163,9 +179,10 @@ const ProfileHeader = ({ name, profileImage }: IProps) => {
         <p className="text-md font-bold">{name}</p>
         <p className="text-sm text-black dark:text-white">@PathtoNowhereEN</p>
         <p className="text-sm text-black dark:text-white">date of joing</p>
-        <Link href="/">
-          <p className="text-sm dark:text-white text-black font-semibold">
-            {0} Following &nbsp;&nbsp;&nbsp;&nbsp; {15} Number of followers{" "}
+        <Link href={`/profile/${profileId1}/myfollowers`}>
+          <p className="text-md cursor-pointer dark:text-white text-black font-semibold">
+
+             {Followers?.length} followers{" "}
           </p>
         </Link>
       </div>

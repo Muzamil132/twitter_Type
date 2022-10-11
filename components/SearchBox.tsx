@@ -37,15 +37,7 @@ useEffect(() => {
       })
       setSearchResult(searchData)
     })
-    // const q1=query(collection(db,"posts"),where("text","==",searchText))
-    // onSnapshot(q1,(snapshot)=>{
-    //   var searchData:any=[]
-    //   snapshot.forEach((doc)=>{
-    //      searchData.push(doc.data())
-    //   })
-    //   setPosts(searchData)
-    // })
-
+   
   },[searchText])
 
   
@@ -67,6 +59,8 @@ useEffect(() => {
         onChange={(e)=>setSearchText(e.target.value)}
       />
     </div>
+
+    
     {activeSearch && (
       <div ref={SearchResultBox} className="bg-gray-100 min-h-[100px]  dark:bg-dark-second  p-2 w-full absolute top-[59px] rounded-lg overflow-y-auto ">
        {

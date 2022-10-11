@@ -160,6 +160,7 @@ const ProfileSettingModal = () => {
   const { data: session}=useSession()
   const currentId =session?.user.uid != undefined ? session?.user.uid : "";
   const [current, setCurrent] = useState<Current>("profile");
+  const [selectedFile,setSelectedFile] = useState("");
   const [loading,setLoading]=useState(false)
   const router =useRouter()
 
@@ -168,6 +169,11 @@ const ProfileSettingModal = () => {
       setCurrent("HeaderImage");
     }
   }
+
+
+
+
+  
 
   console.log(Profile)
   

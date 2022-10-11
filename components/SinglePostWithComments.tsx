@@ -79,6 +79,7 @@ const SinglePostWithComments = () => {
 
 const router=useRouter()
  const {query:{postId,numberOfComment}}=useRouter()
+ const user1= useUser(post?.userId)
 
  
   const {data:session}=useSession()
@@ -171,8 +172,10 @@ const User =useUser(userId)
           <div className=" dark:border-dark-third  px-3 border-b   cursor-pointer ">
             <div className="flex px-1 py-2">
               <img
-                className="inline-block  h-11 w-11 rounded-full "
-                src={post?.userImg}
+               
+              
+                className="rounded-full inline-block   h-10 w-10"
+                src={user1?.user?.userImg}
                 alt="yyy"
               />
               <div className="flex flex-col w-full pl-2">

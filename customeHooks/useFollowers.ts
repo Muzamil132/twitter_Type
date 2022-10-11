@@ -1,11 +1,9 @@
-
-
 import { collection, doc, getDoc, updateDoc,FieldValue,addDoc, getDocs, where, query,deleteDoc, setDoc, onSnapshot, orderBy, DocumentData } from 'firebase/firestore'
 import { db } from '../firebase'
 import {useState,useEffect,useCallback} from 'react'
 import { useSession } from 'next-auth/react';
 
-export function useFollowHook(userId:string,currentUserId:string){
+export function useFollowers(userId:string,currentUserId:string){
     const { data: session } = useSession();
     const imageUrl = session?.user.image != undefined ? session?.user.image : "";
     
@@ -54,8 +52,8 @@ export function useFollowHook(userId:string,currentUserId:string){
       
       },[Followers,currentUserId])
 
-return {
-    isFollowing,loading,Followers
-}
-
+return [
+    isFollowing,loading
+]
+  
 }

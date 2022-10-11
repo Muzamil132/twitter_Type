@@ -36,6 +36,7 @@ const {pathname} =useRouter()
       </h1>
       {
         Users!== undefined &&  Users.map((user:any,id:any)=>(
+          
            pathname=='/addUsers'?(<FollowerComp username={user.username} userImg={user.userImg}  userId={user.userId} key={id} />)   : id<3 && <FollowerComp username={user.username} userImg={user.userImg}  userId={user.userId} key={id} />
         ))
       }
