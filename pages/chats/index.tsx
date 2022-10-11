@@ -135,7 +135,7 @@ if(Chats!==undefined      && MyChats!==undefined) {
 // 
   return (
     <Layoute>
-      <div className="flex h-screen  sm:w-[97%] w-full">
+      <div className="flex h-screen  sm:w-[97%]  w-full">
         <div className={`sm:flex-[33%] ${pathname!=="/chats" &&"hidden sm:flex flex-col" }  flex-1 border-r dark:border-dark-third`}>
           <div className="px-4 mt-4 flex  justify-between  ">
             <p className="text-xl font-semibold text-black dark:text-white">Messages</p>
